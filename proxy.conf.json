@@ -1,0 +1,54 @@
+{
+    "/promotions": {
+        "target": "http://localhost:51791",
+        "secure": false
+    },
+    "/templates": {
+        "target": "http://localhost:51791",
+        "secure": false
+    },
+    "/promotions/*/*": {
+        "target": "http://localhost:51791",
+        "secure": false
+    },
+    "/promotions/*/active": {
+        "target": "http://localhost:51791",
+        "secure": false
+    },
+    "/promotions/*/deactive": {
+        "target": "http://localhost:51791",
+        "secure": false
+    },
+    "/promotions/*": {
+        "target": "http://localhost:51791",
+        "secure": false
+    },
+    "/templates/*": {
+        "target": "http://localhost:51791",
+        "secure": false
+    },
+    "/promotions/options": {
+        "target": "http://localhost:51791",
+        "secure": false
+    },
+    "/processors": {
+        "target": "http://localhost:3000",
+        "secure": false
+    },
+    "/tags": {
+        "target": "http://localhost:3000",
+        "secure": false
+    },
+    "/events": {
+        "target": "http://localhost:3000",
+        "secure": false
+    },
+    "/platforms": {
+        "target": "http://localhost:3000",
+        "secure": false
+    },
+    "/currencies": {
+        "target": "http://localhost:3000",
+        "secure": false
+    }
+}

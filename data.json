@@ -1,0 +1,813 @@
+{
+  "promotions": [
+    {
+      "pKey": "lol",
+      "code": "QWE623",
+      "type": "123123",
+      "events": [
+        "Evento 01",
+        "Evento 02"
+      ],
+      "description": "123123",
+      "tags": [
+        "Navidad",
+        "Halloween"
+      ],
+      "information": "1231",
+      "from": "12313",
+      "to": "123123",
+      "enableUsers": "01",
+      "processors": [
+        "Navidad",
+        "Halloween"
+      ],
+      "platform": [
+        "Desktop",
+        "IOS"
+      ],
+      "quantity": "123123",
+      "frequency": "123123",
+      "restFactor": "123123",
+      "appliesTo": "123123",
+      "contributions": "123123",
+      "currency": "123123",
+      "bonus": "123123",
+      "limitPayment": "13123",
+      "initialAmount": "123123",
+      "finalAmount": "123123",
+      "active": "1",
+      "testing": "1",
+      "insDatetime": "123123"
+    },
+    {
+      "pKey": "lol",
+      "code": "QWE624",
+      "type": "123123",
+      "events": [
+        "Evento 01",
+        "Evento 02"
+      ],
+      "description": "123123",
+      "tags": [
+        "Navidad",
+        "Halloween"
+      ],
+      "information": "1231",
+      "from": "12313",
+      "to": "123123",
+      "enableUsers": "01",
+      "processors": [
+        "Navidad",
+        "Halloween"
+      ],
+      "platform": [
+        "Desktop",
+        "IOS"
+      ],
+      "quantity": "123123",
+      "frequency": "123123",
+      "restFactor": "123123",
+      "appliesTo": "123123",
+      "contributions": "123123",
+      "currency": "123123",
+      "bonus": "123123",
+      "limitPayment": "13123",
+      "initialAmount": "123123",
+      "finalAmount": "123123",
+      "active": "1",
+      "testing": "1",
+      "insDatetime": "123123"
+    },
+    {
+      "pKey": "lol",
+      "code": "QWE623",
+      "type": "123123",
+      "events": [
+        "Evento 01",
+        "Evento 02"
+      ],
+      "description": "123123",
+      "tags": [
+        "Navidad",
+        "Halloween"
+      ],
+      "information": "1231",
+      "from": "12313",
+      "to": "123123",
+      "enableUsers": "01",
+      "processors": [
+        "Navidad",
+        "Halloween"
+      ],
+      "platform": [
+        "Desktop",
+        "IOS"
+      ],
+      "quantity": "123123",
+      "frequency": "123123",
+      "restFactor": "123123",
+      "appliesTo": "123123",
+      "contributions": "123123",
+      "currency": "123123",
+      "bonus": "123123",
+      "limitPayment": "13123",
+      "initialAmount": "123123",
+      "finalAmount": "123123",
+      "active": "1",
+      "testing": "1",
+      "insDatetime": "123123"
+    },
+    {
+      "pKey": "lol",
+      "code": "QWE623",
+      "type": "123123",
+      "events": [
+        "Evento 01",
+        "Evento 02"
+      ],
+      "description": "123123",
+      "tags": [
+        "Navidad",
+        "Halloween"
+      ],
+      "information": "1231",
+      "from": "12313",
+      "to": "123123",
+      "enableUsers": "01",
+      "processors": [
+        "Navidad",
+        "Halloween"
+      ],
+      "platform": [
+        "Desktop",
+        "IOS"
+      ],
+      "quantity": "123123",
+      "frequency": "123123",
+      "restFactor": "123123",
+      "appliesTo": "123123",
+      "contributions": "123123",
+      "currency": "123123",
+      "bonus": "123123",
+      "limitPayment": "13123",
+      "initialAmount": "123123",
+      "finalAmount": "123123",
+      "active": "1",
+      "testing": "1",
+      "insDatetime": "123123"
+    },
+    {
+      "pKey": "lol",
+      "code": "QWE623",
+      "type": "123123",
+      "events": [
+        "Evento 01",
+        "Evento 02"
+      ],
+      "description": "123123",
+      "tags": [
+        "Navidad",
+        "Halloween"
+      ],
+      "information": "1231",
+      "from": "12313",
+      "to": "123123",
+      "enableUsers": "01",
+      "processors": [
+        "Navidad",
+        "Halloween"
+      ],
+      "platform": [
+        "Desktop",
+        "IOS"
+      ],
+      "quantity": "123123",
+      "frequency": "123123",
+      "restFactor": "123123",
+      "appliesTo": "123123",
+      "contributions": "123123",
+      "currency": "123123",
+      "bonus": "123123",
+      "limitPayment": "13123",
+      "initialAmount": "123123",
+      "finalAmount": "123123",
+      "active": "1",
+      "testing": "1",
+      "insDatetime": "123123"
+    },
+    {
+      "pKey": "lol",
+      "code": "QWE623",
+      "type": "123123",
+      "events": [
+        "Evento 01",
+        "Evento 02"
+      ],
+      "description": "123123",
+      "tags": [
+        "Navidad",
+        "Halloween"
+      ],
+      "information": "1231",
+      "from": "12313",
+      "to": "123123",
+      "enableUsers": "01",
+      "processors": [
+        "Navidad",
+        "Halloween"
+      ],
+      "platform": [
+        "Desktop",
+        "IOS"
+      ],
+      "quantity": "123123",
+      "frequency": "123123",
+      "restFactor": "123123",
+      "appliesTo": "123123",
+      "contributions": "123123",
+      "currency": "123123",
+      "bonus": "123123",
+      "limitPayment": "13123",
+      "initialAmount": "123123",
+      "finalAmount": "123123",
+      "active": "1",
+      "testing": "1",
+      "insDatetime": "123123"
+    },
+    {
+      "pKey": "lol",
+      "code": "QWE623",
+      "type": "123123",
+      "events": [
+        "Evento 01",
+        "Evento 02"
+      ],
+      "description": "123123",
+      "tags": [
+        "Navidad",
+        "Halloween"
+      ],
+      "information": "1231",
+      "from": "12313",
+      "to": "123123",
+      "enableUsers": "01",
+      "processors": [
+        "Navidad",
+        "Halloween"
+      ],
+      "platform": [
+        "Desktop",
+        "IOS"
+      ],
+      "quantity": "123123",
+      "frequency": "123123",
+      "restFactor": "123123",
+      "appliesTo": "123123",
+      "contributions": "123123",
+      "currency": "123123",
+      "bonus": "123123",
+      "limitPayment": "13123",
+      "initialAmount": "123123",
+      "finalAmount": "123123",
+      "active": "1",
+      "testing": "1",
+      "insDatetime": "123123"
+    },
+    {
+      "pKey": "lol",
+      "code": "QWE623",
+      "type": "123123",
+      "events": [
+        "Evento 01",
+        "Evento 02"
+      ],
+      "description": "123123",
+      "tags": [
+        "Navidad",
+        "Halloween"
+      ],
+      "information": "1231",
+      "from": "12313",
+      "to": "123123",
+      "enableUsers": "01",
+      "processors": [
+        "Navidad",
+        "Halloween"
+      ],
+      "platform": [
+        "Desktop",
+        "IOS"
+      ],
+      "quantity": "123123",
+      "frequency": "123123",
+      "restFactor": "123123",
+      "appliesTo": "123123",
+      "contributions": "123123",
+      "currency": "123123",
+      "bonus": "123123",
+      "limitPayment": "13123",
+      "initialAmount": "123123",
+      "finalAmount": "123123",
+      "active": "1",
+      "testing": "1",
+      "insDatetime": "123123"
+    },
+    {
+      "pKey": "lol",
+      "code": "QWE623",
+      "type": "123123",
+      "events": [
+        "Evento 01",
+        "Evento 02"
+      ],
+      "description": "123123",
+      "tags": [
+        "Navidad",
+        "Halloween"
+      ],
+      "information": "1231",
+      "from": "12313",
+      "to": "123123",
+      "enableUsers": "01",
+      "processors": [
+        "Navidad",
+        "Halloween"
+      ],
+      "platform": [
+        "Desktop",
+        "IOS"
+      ],
+      "quantity": "123123",
+      "frequency": "123123",
+      "restFactor": "123123",
+      "appliesTo": "123123",
+      "contributions": "123123",
+      "currency": "123123",
+      "bonus": "123123",
+      "limitPayment": "13123",
+      "initialAmount": "123123",
+      "finalAmount": "123123",
+      "active": "1",
+      "testing": "1",
+      "insDatetime": "123123"
+    },
+    {
+      "pKey": "lol",
+      "code": "QWE623",
+      "type": "123123",
+      "events": [
+        "Evento 01",
+        "Evento 02"
+      ],
+      "description": "123123",
+      "tags": [
+        "Navidad",
+        "Halloween"
+      ],
+      "information": "1231",
+      "from": "12313",
+      "to": "123123",
+      "enableUsers": "01",
+      "processors": [
+        "Navidad",
+        "Halloween"
+      ],
+      "platform": [
+        "Desktop",
+        "IOS"
+      ],
+      "quantity": "123123",
+      "frequency": "123123",
+      "restFactor": "123123",
+      "appliesTo": "123123",
+      "contributions": "123123",
+      "currency": "123123",
+      "bonus": "123123",
+      "limitPayment": "13123",
+      "initialAmount": "123123",
+      "finalAmount": "123123",
+      "active": "1",
+      "testing": "1",
+      "insDatetime": "123123"
+    },
+    {
+      "pKey": "lol",
+      "code": "QWE623",
+      "type": "123123",
+      "events": [
+        "Evento 01",
+        "Evento 02"
+      ],
+      "description": "123123",
+      "tags": [
+        "Navidad",
+        "Halloween"
+      ],
+      "information": "1231",
+      "from": "12313",
+      "to": "123123",
+      "enableUsers": "01",
+      "processors": [
+        "Navidad",
+        "Halloween"
+      ],
+      "platform": [
+        "Desktop",
+        "IOS"
+      ],
+      "quantity": "123123",
+      "frequency": "123123",
+      "restFactor": "123123",
+      "appliesTo": "123123",
+      "contributions": "123123",
+      "currency": "123123",
+      "bonus": "123123",
+      "limitPayment": "13123",
+      "initialAmount": "123123",
+      "finalAmount": "123123",
+      "active": "1",
+      "testing": "1",
+      "insDatetime": "123123"
+    },
+    {
+      "pKey": "lol",
+      "code": "QWE623",
+      "type": "123123",
+      "events": [
+        "Evento 01",
+        "Evento 02"
+      ],
+      "description": "123123",
+      "tags": [
+        "Navidad",
+        "Halloween"
+      ],
+      "information": "1231",
+      "from": "12313",
+      "to": "123123",
+      "enableUsers": "01",
+      "processors": [
+        "Navidad",
+        "Halloween"
+      ],
+      "platform": [
+        "Desktop",
+        "IOS"
+      ],
+      "quantity": "123123",
+      "frequency": "123123",
+      "restFactor": "123123",
+      "appliesTo": "123123",
+      "contributions": "123123",
+      "currency": "123123",
+      "bonus": "123123",
+      "limitPayment": "13123",
+      "initialAmount": "123123",
+      "finalAmount": "123123",
+      "active": "1",
+      "testing": "1",
+      "insDatetime": "123123"
+    },
+    {
+      "pKey": "lol",
+      "code": "QWE623",
+      "type": "123123",
+      "events": [
+        "Evento 01",
+        "Evento 02"
+      ],
+      "description": "123123",
+      "tags": [
+        "Navidad",
+        "Halloween"
+      ],
+      "information": "1231",
+      "from": "12313",
+      "to": "123123",
+      "enableUsers": "01",
+      "processors": [
+        "Navidad",
+        "Halloween"
+      ],
+      "platform": [
+        "Desktop",
+        "IOS"
+      ],
+      "quantity": "123123",
+      "frequency": "123123",
+      "restFactor": "123123",
+      "appliesTo": "123123",
+      "contributions": "123123",
+      "currency": "123123",
+      "bonus": "123123",
+      "limitPayment": "13123",
+      "initialAmount": "123123",
+      "finalAmount": "123123",
+      "active": "1",
+      "testing": "1",
+      "insDatetime": "123123"
+    },
+    {
+      "pKey": "lol",
+      "code": "QWE623",
+      "type": "123123",
+      "events": [
+        "Evento 01",
+        "Evento 02"
+      ],
+      "description": "123123",
+      "tags": [
+        "Navidad",
+        "Halloween"
+      ],
+      "information": "1231",
+      "from": "12313",
+      "to": "123123",
+      "enableUsers": "01",
+      "processors": [
+        "Navidad",
+        "Halloween"
+      ],
+      "platform": [
+        "Desktop",
+        "IOS"
+      ],
+      "quantity": "123123",
+      "frequency": "123123",
+      "restFactor": "123123",
+      "appliesTo": "123123",
+      "contributions": "123123",
+      "currency": "123123",
+      "bonus": "123123",
+      "limitPayment": "13123",
+      "initialAmount": "123123",
+      "finalAmount": "123123",
+      "active": "1",
+      "testing": "1",
+      "insDatetime": "123123"
+    },
+    {
+      "pKey": "lol",
+      "code": "QWE623",
+      "type": "123123",
+      "events": [
+        "Evento 01",
+        "Evento 02"
+      ],
+      "description": "123123",
+      "tags": [
+        "Navidad",
+        "Halloween"
+      ],
+      "information": "1231",
+      "from": "12313",
+      "to": "123123",
+      "enableUsers": "01",
+      "processors": [
+        "Navidad",
+        "Halloween"
+      ],
+      "platform": [
+        "Desktop",
+        "IOS"
+      ],
+      "quantity": "123123",
+      "frequency": "123123",
+      "restFactor": "123123",
+      "appliesTo": "123123",
+      "contributions": "123123",
+      "currency": "123123",
+      "bonus": "123123",
+      "limitPayment": "13123",
+      "initialAmount": "123123",
+      "finalAmount": "123123",
+      "active": "1",
+      "testing": "1",
+      "insDatetime": "123123"
+    },
+    {
+      "pKey": "lol",
+      "code": "",
+      "type": "",
+      "events": "",
+      "description": "",
+      "tags": "",
+      "information": "",
+      "from": "",
+      "to": "",
+      "enableUsers": "",
+      "processors": "",
+      "platform": "",
+      "quantity": "",
+      "frequency": "",
+      "restFactor": "",
+      "appliesTo": "",
+      "contributions": "",
+      "currency": "",
+      "bonus": "",
+      "limitPayment": "",
+      "initialAmount": "",
+      "finalAmount": "",
+      "active": "1",
+      "testing": "1",
+      "insDatetime": ""
+    },
+    {
+      "id": "lol",
+      "promotionId": "lol",
+      "code": "QWE628",
+      "type": "lol",
+      "events": [
+        "Evento 01",
+        "Evento 02"
+      ],
+      "description": "123123",
+      "tags": [
+        "Navidad",
+        "Halloween"
+      ],
+      "information": "1231",
+      "from": "12313",
+      "to": "123123",
+      "enableUsers": "01",
+      "processors": [
+        "Navidad",
+        "Halloween"
+      ],
+      "platform": [
+        "Desktop",
+        "IOS"
+      ],
+      "quantity": "123123",
+      "frequency": "123123",
+      "restFactor": "123123",
+      "appliesTo": "123123",
+      "contributions": "123123",
+      "currency": "123123",
+      "bonus": "123123",
+      "limitPayment": "13123",
+      "initialAmount": "123123",
+      "finalAmount": "123123",
+      "active": "1",
+      "testing": "1",
+      "insDatetime": "123123"
+    }
+  ],
+  "events": [
+    {
+      "eKey": "01",
+      "name": "Evento 1",
+      "description": "Evento 1 description",
+      "active": "1",
+      "testing": "1",
+      "insDatetime": ""
+    },
+    {
+      "eKey": "02",
+      "name": "Evento 2",
+      "description": "Evento 2 description",
+      "active": "1",
+      "testing": "1",
+      "insDatetime": ""
+    },
+    {
+      "eKey": "03",
+      "name": "Evento 3",
+      "description": "Evento 3 description",
+      "active": "1",
+      "testing": "1",
+      "insDatetime": ""
+    },
+    {
+      "eKey": "04",
+      "name": "Evento 4",
+      "description": "Evento 4 description",
+      "active": "1",
+      "testing": "1",
+      "insDatetime": ""
+    },
+    {
+      "eKey": "05",
+      "name": "Evento 5",
+      "description": "Evento 5 description",
+      "active": "1",
+      "testing": "1",
+      "insDatetime": ""
+    },
+    {
+      "eKey": "06",
+      "name": "Evento 6",
+      "description": "Evento 6 description",
+      "active": "1",
+      "testing": "1",
+      "insDatetime": ""
+    }
+  ],
+  "tags": [
+    {
+      "tKey": "01",
+      "name": "Navidad",
+      "description": "tag 1 description",
+      "active": "1",
+      "testing": "1",
+      "insDatetime": ""
+    },
+    {
+      "tKey": "02",
+      "name": "Halloween",
+      "description": "tag 2 description",
+      "active": "1",
+      "testing": "1",
+      "insDatetime": ""
+    },
+    {
+      "tKey": "03",
+      "name": "Evento de Verano",
+      "description": "tag 3 description",
+      "active": "1",
+      "testing": "1",
+      "insDatetime": ""
+    }
+  ],
+  "platforms": [
+    {
+      "tKey": "01",
+      "name": "IOS",
+      "description": "platform 1 description",
+      "active": "1",
+      "testing": "1",
+      "insDatetime": ""
+    },
+    {
+      "tKey": "02",
+      "name": "Android",
+      "description": "platform 2 description",
+      "active": "1",
+      "testing": "1",
+      "insDatetime": ""
+    },
+    {
+      "tKey": "03",
+      "name": "Desktop",
+      "description": "platform 3 description",
+      "active": "1",
+      "testing": "1",
+      "insDatetime": ""
+    }
+  ],
+  "processors": [
+    {
+      "pKey": "01",
+      "name": "Feenicia",
+      "description": "platform 1 description",
+      "active": "1",
+      "testing": "1",
+      "insDatetime": ""
+    },
+    {
+      "pKey": "02",
+      "name": "Paycips",
+      "description": "platform 2 description",
+      "active": "1",
+      "testing": "1",
+      "insDatetime": ""
+    },
+    {
+      "pKey": "03",
+      "name": "Skrill",
+      "description": "platform 3 description",
+      "active": "1",
+      "testing": "1",
+      "insDatetime": ""
+    }
+  ],
+  "currencies": [
+    {
+      "cKey": "01",
+      "name": "Dolar Americano",
+      "shortname": "US",
+      "description": "platform 1 description",
+      "active": "1",
+      "testing": "1",
+      "insDatetime": ""
+    },
+    {
+      "cKey": "02",
+      "name": "Euro",
+      "shortname": "EU",
+      "description": "platform 2 description",
+      "active": "1",
+      "testing": "1",
+      "insDatetime": ""
+    },
+    {
+      "cKey": "03",
+      "name": "Nuevo Sol",
+      "shortname": "PEN",
+      "description": "platform 3 description",
+      "active": "1",
+      "testing": "1",
+      "insDatetime": ""
+    }
+  ]
+}
