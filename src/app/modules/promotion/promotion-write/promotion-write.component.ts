@@ -67,7 +67,7 @@ export class promotionWriteComponent implements OnInit {
   ) {
     this.handleResources();
     this.handleLoadElement();
-    this.createInformationArrayForm();
+    // this.createInformationArrayForm();
   }
 
   ngOnInit(): void {

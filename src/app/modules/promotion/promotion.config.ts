@@ -46,6 +46,7 @@ export const config = {
     columns: [
       { header: 'ID', align: 'left', key: 'code', width: '80', show: false },
       { header: 'TIPO', align: 'left', key: 'type', width: '160', show: true },
+      { header: 'MONEDA', align: 'left', key: 'currency', width: '80', show: true },
       { header: 'Eventos', align: 'left', key: 'events', width: '160', show: true },
       { header: 'DESCRIPCION', align: 'left', key: 'description', width: '80', show: true },
       { header: 'VALIDO DESDE', align: 'left', key: 'from', width: '80', show: false },
@@ -54,7 +55,6 @@ export const config = {
       { header: 'FREQUENCIA', align: 'left', key: 'frequency', width: '100', show: false },
       { header: 'FACTOR DE REDISTRIBUCION', align: 'restFactor', key: 'identId', width: '120', show: true },
       { header: 'SE APLICA A', align: 'left', key: 'appliesTo', width: '80', show: true },
-      { header: 'MONEDA', align: 'left', key: 'currency', width: '80', show: true },
       { header: 'BONUS', align: 'left', key: 'bonus', width: '80', show: true },
       { header: 'LIMITE DE PAGO', align: 'left', key: 'limitPayment', width: '80', show: true },
       { header: 'MONTO INICIAL', align: 'left', key: 'initialAmount', width: '80', show: true },

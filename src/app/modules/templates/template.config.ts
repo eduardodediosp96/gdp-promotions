@@ -36,11 +36,11 @@ export const config = {
   dataTable: {
     tableId: 'template',
     columns: [
-      { header: 'codeStr', align: 'left', key: 'codeStr', width: '100', show: true },
+      { header: 'Moneda', align: 'left', key: 'codeStr', width: '100', show: true },
       { header: 'ID', align: 'left', key: 'templateId', width: '80', show: false },
       { header: 'Nombre', align: 'left', key: 'name', width: '260', show: true },
       { header: 'Moneda', align: 'left', key: 'currencyId', width: '100', show: true },
-      { header: 'Tipo', align: 'left', key: 'currencyId', width: '100', show: false },
+      { header: 'Tipo', align: 'left', key: 'typeName', width: '100', show: false },
       { header: 'Usuarios habilitados', align: 'left', key: 'enableUsers', width: '180', show: false },
       { header: 'Factor de Redistribucion', align: 'left', key: 'restFactor', width: '80', show: false },
       { header: 'Plataformas', align: 'left', key: 'platforms', width: '180', show: false },
