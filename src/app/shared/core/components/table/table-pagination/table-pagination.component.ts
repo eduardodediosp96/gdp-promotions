@@ -32,6 +32,7 @@ export class TablePaginationComponent implements OnInit {
 
   @Input() showBtnDownload = false;
   @Input() showBtnAdd = false;
+  @Input() showBtnCopy = false;
 
   displayedColumns: string[] = [];
   dataSource = new MatTableDataSource<any>([]);
@@ -39,8 +40,10 @@ export class TablePaginationComponent implements OnInit {
 
 
   @Output() clicBtn = new EventEmitter();
+  @Output() clicRefresh = new EventEmitter();
   @Output() runFilter = new EventEmitter();
   @Output() newRegister = new EventEmitter();
+  @Output() newRegisterCopy = new EventEmitter();
 
   columnsSelected = new FormControl();
 
@@ -97,6 +100,10 @@ export class TablePaginationComponent implements OnInit {
 
   handleNew(): void {
     this.newRegister.emit( true );
+  }
+
+  handleNewCopy(): void {
+    this.newRegisterCopy.emit( true );
   }
 
   exportToCsv(): void {

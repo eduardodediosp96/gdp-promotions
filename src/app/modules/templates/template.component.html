@@ -3,5 +3,5 @@
     <app-template-filters (sendFilters)="handleFilter($event)" [formFilter]="formFilter" visible="true" [resources]="resources"></app-template-filters>
     <app-table-pagination [tableId]="config.dataTable.tableId" [columns]="config.dataTable.columns" [pageSizeOptions]="config.dataTable.pageSizeOptions" [pageSize]="config.dataTable.pageSizeDefault" [actions]="config.dataTable.actionColumn" [index]="config.dataTable.indexColumn"
         [listStatus]="config.dataTable.listStatus" [statusSelected]="config.dataTable.statusSelected" [showStatus]="config.dataTable.showStatus" [filters]="filtersAllowed" [filterSelected]="config.dataTable.filterSelected" [showBtnDownload]="config.dataTable.showBtnDownload"
-        [showBtnAdd]="config.dataTable.showBtnAdd" (clicBtn)="handleAction($event)" (runFilter)="handleFilter($event)" (newRegister)="handleNew($event)"></app-table-pagination>
+        [showBtnAdd]="false" (clicBtn)="handleAction($event)" (runFilter)="handleFilter($event)" (newRegister)="handleNew($event)"></app-table-pagination>
 </mat-card>

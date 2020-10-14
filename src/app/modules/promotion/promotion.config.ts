@@ -81,6 +81,7 @@ export const config = {
     showFilters: true,
     showBtnDownload: true,
     showBtnAdd: true,
+    showBtnCopy: true,
   },
   active: {
     '-1': {

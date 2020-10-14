@@ -64,9 +64,9 @@ export const config = {
     //   { key: 'active', label: 'Active' }
     // ],
     filterSelected: '',
-    showFilters: true,
+    showFilters: false,
     showBtnDownload: true,
-    showBtnAdd: true,
+    showBtnAdd: false,
   },
   active: {
     '-1': {

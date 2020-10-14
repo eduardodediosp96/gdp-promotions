@@ -215,9 +215,11 @@ export class promotionComponent implements OnInit {
   }
 
   handleNew(event: any): void {
-    console.log('el id q copiamos es! ',this.copiedId)
+    this.router.navigate([`/promotion/write/new`]);
+  }
+
+  handleNewCopied(event: any): void {
     this.router.navigate([`/promotion/copiedby/new`]);
-    // this.router.navigate([`/promotion/write/new`]);
   }
 
   handleAction(event): void {
