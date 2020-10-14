@@ -1,0 +1,19 @@
+<div class="row">
+    <div class="col-4">
+        <div class="slide-toggle-col d-flex justify-content-center align-content-center">
+            <mat-slide-toggle class="example-margin mt-2 ml-4" color="red" (change)="onDragChange($event)">
+            </mat-slide-toggle>
+        </div>
+    </div>
+    <div class="col-8">
+        <mat-form-field [appearance]="appearance" [floatLabel]='floatLabel' [class]="error && error.invalid && (error.dirty || error.touched)  ? 'mat-form-field-invalid ng-invalid' : '' ">
+            <mat-label>{{label}}</mat-label>
+            <input [attr.disabled]="!activeInput == true ? true : null" ng-disabled="activeInput" matInput [placeholder]="placeholder" (input)="onInput($event.target.value)" [formControl]="value" autocomplete="off" [readonly]="isReadonly">
+            <mat-icon *ngIf="icon && alignIcon == 'right'" (click)="setOnClick()" matSuffix>{{ icon }}</mat-icon>
+            <mat-icon *ngIf="icon && alignIcon == 'left'" (click)="setOnClick()" matPrefix>{{ icon }}</mat-icon>
+        </mat-form-field>
+        <mat-hint style="color:red" *ngIf="error && error.invalid && (error.dirty || error.touched || error.pristine)">
+            {{ getMessage() }}
+        </mat-hint>
+    </div>
+</div>

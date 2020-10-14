@@ -1,0 +1,91 @@
+<div class="container">
+	<div class="row animate__animated animate__fadeInUp">
+		<div class="col-12">
+			<form [formGroup]="form">
+				<mat-card>
+					<div class="row">
+						<div class="col-12">
+							<h3>
+								{{
+									pageType == "new"
+										? "Registrar "
+										: "Actualizar "
+								}}
+								Lenguage
+							</h3>
+						</div>
+
+						<div class="col-12">
+							<app-form-field-input
+								appearance="outline"
+								formControlName="langId"
+								[type]="'text'"
+								label="Lenguage ID *"
+								[error]="form.controls['langId']"
+								[isReadonly]="pageType != 'new'"
+							>
+							</app-form-field-input>
+						</div>
+						<div class="col-12">
+							<app-form-field-input
+								appearance="outline"
+								formControlName="name"
+								[type]="'text'"
+								label="Nombre *"
+								[error]="form.controls['name']"
+							>
+							</app-form-field-input>
+						</div>
+
+						<app-form-field-select
+							class="col-12"
+							appearance="outline"
+							formControlName="countryId"
+							label="Pais"
+							[options]="countries"
+							[display]="'name'"
+							[key]="'countryId'"
+							[error]="form.controls['countryId']"
+						></app-form-field-select>
+
+						<div class="col-12">
+							<app-form-field-checkbox
+								formControlName="testing"
+								label="Testing"
+							></app-form-field-checkbox>
+						</div>
+
+						<div class="col-12">
+							<div class="d-flex buttons-submit">
+								<button
+									(click)="handleCancel()"
+									mat-stroked-button
+									color="warn"
+								>
+									CANCELAR
+								</button>
+								<button
+									(click)="
+										pageType == 'new'
+											? handleNewItem()
+											: handleUpdItem()
+									"
+									#submit
+									[disabled]="!form.valid"
+									mat-raised-button
+									color="primary"
+								>
+									{{
+										pageType == "new"
+											? "REGISTRAR"
+											: "ACTUALIZAR"
+									}}
+								</button>
+							</div>
+						</div>
+					</div>
+				</mat-card>
+			</form>
+		</div>
+	</div>
+</div>

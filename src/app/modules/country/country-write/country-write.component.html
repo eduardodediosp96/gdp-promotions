@@ -1,0 +1,122 @@
+<div class="container">
+	<div class="row animate__animated animate__fadeInUp">
+		<div class="col-12">
+			<form [formGroup]="form">
+				<mat-card>
+					<div class="row">
+						<div class="col-12">
+							<h3>
+								{{
+									pageType == "new" ? "Registrar " : "Actualizar "
+								}}
+								Country
+							</h3>
+						</div>
+
+						<div class="col-12">
+							<app-form-field-input appearance="outline" formControlName="countryId"
+							[type]="'text'" label="Pais ID *" [error]="form.controls['countryId']"
+							mask="AAA" [isReadonly]="pageType != 'new'"
+							>
+							</app-form-field-input>
+						</div>
+
+						<div class="col-12">
+							<app-form-field-input appearance="outline" formControlName="name"
+							[type]="'text'" label="Nombre *" [error]="form.controls['name']"
+							>
+							</app-form-field-input>
+						</div>
+
+						<div class="col-12">
+							<app-form-field-input appearance="outline" formControlName="codeStr" mask="SS"
+							[type]="'text'" label="Codigo Letras *" [error]="form.controls['codeStr']"
+							>
+							</app-form-field-input>
+						</div>
+
+						<div class="col-12">
+							<app-form-field-input appearance="outline" formControlName="codeNum" mask="0*"
+							[type]="'text'" label="Codigo Numeros *" [error]="form.controls['codeNum']"
+							>
+							</app-form-field-input>
+						</div>
+
+						<div class="col-12">
+							<app-form-field-input appearance="outline" formControlName="icCode"
+							[type]="'text'" label="Prefijo Telefonico Internacional *" [error]="form.controls['icCode']"
+							>
+							</app-form-field-input>
+						</div>
+
+						<app-form-field-select
+							class="col-12"
+							appearance="outline"
+							formControlName="langId"
+							label="Lenguaje *"
+							[options]="langs"
+							[display]="'name'"
+							[key]="'langId'"
+							[error]="form.controls['langId']"
+						></app-form-field-select>
+
+						<app-form-field-select
+							class="col-12"
+							appearance="outline"
+							formControlName="currencyId"
+							label="Moneda *"
+							[options]="currencies"
+							[display]="'nameSingular'"
+							[key]="'currencyId'"
+							[error]="form.controls['currencyId']"
+						></app-form-field-select>
+
+						<app-form-field-select
+							class="col-12"
+							appearance="outline"
+							formControlName="identId"
+							label="Identificacion *"
+							[options]="idents"
+							[display]="'name'"
+							[key]="'identId'"
+							[error]="form.controls['identId']"
+						></app-form-field-select>
+
+						<div class="col-12">
+							<app-form-field-checkbox
+								formControlName="testing"
+								label="Testing"
+							></app-form-field-checkbox>
+						</div>
+
+						<div class="col-12">
+							<div class="d-flex buttons-submit">
+								<button
+									(click)="handleCancel()"
+									mat-stroked-button
+									color="warn"
+								>
+									CANCELAR
+								</button>
+								<button
+									(click)="
+										pageType == 'new'
+											? handleNewItem()
+											: handleUpdItem()
+									"
+									#submit
+									[disabled]="!form.valid"
+									mat-raised-button
+									color="primary"
+									>
+									{{ pageType == "new" ? "REGISTRAR" : "ACTUALIZAR" }}
+								</button>
+							</div>
+						</div>
+					</div>
+				</mat-card>
+			</form>
+
+		</div>
+	</div>
+</div>

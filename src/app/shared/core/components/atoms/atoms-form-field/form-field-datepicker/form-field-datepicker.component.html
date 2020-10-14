@@ -1,0 +1,14 @@
+<mat-form-field [appearance]="appearance" [floatLabel]='floatLabel' [class]="error && error.invalid && (error.dirty || error.touched)  ? 'mat-form-field-invalid ng-invalid' : '' ">
+    <mat-label>{{label}}</mat-label>
+    <input matInput [matDatepicker]="picker1" [placeholder]="placeholder" [formControl]="value" (dateInput)="addEvent('input', $event)" (dateChange)="addEvent('change', $event)">
+    <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+    <mat-datepicker touchUi="true" #picker1></mat-datepicker>
+</mat-form-field>
+
+
+<!-- <input matInput *ngIf="!mask" [type]="type" [placeholder]="placeholder" (input)="onInput($event.target.value)" [formControl]="value" autocomplete="off" [readonly]="isReadonly" [matDatepicker]="picker1">
+    <input matInput *ngIf="mask" [type]="type" [placeholder]="placeholder" (input)="onInput($event.target.value)" [formControl]="value" autocomplete="off" [readonly]="isReadonly" [matDatepicker]="picker1" [mask]="mask" [showMaskTyped]="showMaskTyped || false"
+        [suffix]="suffix || ''" [prefix]="prefix || ''" [dropSpecialCharacters]="dropSpecialCharacters">
+    <mat-hint style="color:red" *ngIf="error && error.invalid && (error.dirty || error.touched || error.pristine)">
+        {{ getMessage() }}
+    </mat-hint> -->

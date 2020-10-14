@@ -1,0 +1,23 @@
+<app-title title="Monedas"></app-title>
+
+<mat-card class="animate__animated  animate__fadeInUp">
+	<app-table-pagination
+		[tableId]="config.dataTable.tableId"
+		[columns]="config.dataTable.columns"
+		[pageSizeOptions]="config.dataTable.pageSizeOptions"
+		[pageSize]="config.dataTable.pageSizeDefault"
+		[actions]="config.dataTable.actionColumn"
+		[index]="config.dataTable.indexColumn"
+		[listStatus]="config.dataTable.listStatus"
+		[statusSelected]="config.dataTable.statusSelected"
+		[showStatus]="config.dataTable.showStatus"
+		[filters]="filtersAllowed"
+		[filterSelected]="config.dataTable.filterSelected"
+		[showFilters]="config.dataTable.showFilters"
+		[showBtnDownload]="config.dataTable.showBtnDownload"
+		[showBtnAdd]="config.dataTable.showBtnAdd"
+		(clicBtn)="handleAction($event)"
+		(runFilter)="handleFilter($event)"
+		(newRegister)="handleNew($event)"
+	></app-table-pagination>
+</mat-card>

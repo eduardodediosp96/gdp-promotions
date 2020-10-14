@@ -1,0 +1,83 @@
+<div class="container">
+	<div class="row ">
+		<div class="col-12">
+			<form [formGroup]="form">
+				<mat-card>
+					<div class="row">
+						<div class="col-12">
+							<h3>
+								{{
+									pageType == "new"
+										? "Registrar "
+										: "Actualizar "
+								}}
+								Traduccion de Etiquetas
+							</h3>
+						</div>
+
+						<app-form-field-select
+							class="col-12"
+							appearance="outline"
+							formControlName="langId"
+							label="Lenguaje"
+							[options]="languages"
+							[display]="'name'"
+							[key]="'langId'"
+							[error]="form.controls['langId']"
+						></app-form-field-select>
+
+						<div class="col-12">
+							<app-form-field-input
+								appearance="outline"
+								formControlName="keyId"
+								[type]="'text'"
+								label="Etiqueta ID *"
+								[error]="form.controls['keyId']"
+							>
+							</app-form-field-input>
+						</div>
+
+						<div class="col-12">
+							<app-form-field-textarea
+								appearance="outline"
+								formControlName="value"
+								label="Valor *"
+								[error]="form.controls['value']"
+							>
+							</app-form-field-textarea>
+						</div>
+
+						<div class="col-12">
+							<div class="d-flex buttons-submit">
+								<button
+									(click)="dialogRef.close(false)"
+									mat-stroked-button
+									color="warn"
+								>
+									CANCELAR
+								</button>
+								<button
+									(click)="
+										pageType == 'new'
+											? handleNewItem()
+											: handleUpdItem()
+									"
+									#submit
+									[disabled]="!form.valid"
+									mat-raised-button
+									color="primary"
+								>
+									{{
+										pageType == "new"
+											? "REGISTRAR"
+											: "ACTUALIZAR"
+									}}
+								</button>
+							</div>
+						</div>
+					</div>
+				</mat-card>
+			</form>
+		</div>
+	</div>
+</div>

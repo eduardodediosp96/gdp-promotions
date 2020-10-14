@@ -1,0 +1,93 @@
+<app-title title="Monedas por paises"></app-title>
+
+<div class="container">
+	<div class="row animate__animated animate__fadeInUp">
+		<div class="col-12">
+			<form [formGroup]="form">
+				<mat-card>
+					<div class="row">
+						<div class="col-12">
+							<h3>
+								{{
+									pageType == "new" ? "Registrar " : "Actualizar "
+								}}
+								monedas por paises
+							</h3>
+						</div>
+
+						<app-form-field-select
+							class="col-12"
+							appearance="outline"
+							formControlName="countryId"
+							label="Pais *"
+							[options]="countries"
+							[display]="'name'"
+							[key]="'countryId'"
+							[error]="form.controls['countryId']"
+						></app-form-field-select>
+
+						<app-form-field-select
+							class="col-12"
+							appearance="outline"
+							formControlName="currencyId"
+							label="Moneda *"
+							[options]="currencies"
+							[display]="'nameSingular'"
+							[key]="'currencyId'"
+							[error]="form.controls['currencyId']"
+						></app-form-field-select>
+
+						<div class="col-12">
+							<div class="d-flex buttons-submit">
+								<button
+									(click)="handleCancel()"
+									mat-stroked-button
+									color="warn"
+								>
+									CANCELAR
+								</button>
+								<button
+									(click)="
+										pageType == 'new'
+											? handleNewItem()
+											: handleUpdItem()
+									"
+									#submit
+									[disabled]="!form.valid"
+									mat-raised-button
+									color="primary"
+									>
+									{{ pageType == "new" ? "REGISTRAR" : "ACTUALIZAR" }}
+								</button>
+							</div>
+						</div>
+					</div>
+				</mat-card>
+			</form>
+
+		</div>
+	</div>
+</div>
+
+<hr>
+<mat-card class="animate__animated  animate__fadeInUp">
+	<app-table-pagination
+		[tableId]="config.dataTable.tableId"
+		[columns]="config.dataTable.columns"
+		[pageSizeOptions]="config.dataTable.pageSizeOptions"
+		[pageSize]="config.dataTable.pageSizeDefault"
+		[actions]="config.dataTable.actionColumn"
+		[index]="config.dataTable.indexColumn"
+		[listStatus]="config.dataTable.listStatus"
+		[statusSelected]="config.dataTable.statusSelected"
+		[showStatus]="config.dataTable.showStatus"
+		[filters]="filtersAllowed"
+		[filterSelected]="config.dataTable.filterSelected"
+		[showFilters]="config.dataTable.showFilters"
+		[showBtnDownload]="config.dataTable.showBtnDownload"
+		[showBtnAdd]="config.dataTable.showBtnAdd"
+		(clicBtn)="handleAction($event)"
+		(runFilter)="handleFilter($event)"
+		(newRegister)="handleNew($event)"
+	></app-table-pagination>
+</mat-card>

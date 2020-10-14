@@ -1,0 +1,82 @@
+<div class="container">
+	<div class="row animate__animated animate__fadeInUp">
+		<div class="col-12">
+			<form [formGroup]="form">
+				<mat-card>
+					<div class="row">
+						<div class="col-12">
+							<h3>
+								{{
+									pageType == "new" ? "Registrar " : "Actualizar "
+								}}
+								Currency
+							</h3>
+						</div>
+
+						<div class="col-12">
+							<app-form-field-input appearance="outline" formControlName="currencyId"
+							[type]="'text'" label="Moneda ID *" [error]="form.controls['currencyId']"
+							mask="AAA" [isReadonly]="pageType != 'new'"
+							>
+							</app-form-field-input>
+						</div>
+
+						<div class="col-12">
+							<app-form-field-input appearance="outline" formControlName="nameSingular"
+							[type]="'text'" label="Nombre Singular *" [error]="form.controls['nameSingular']"
+							>
+							</app-form-field-input>
+						</div>
+
+						<div class="col-12">
+							<app-form-field-input appearance="outline" formControlName="namePlural"
+							[type]="'text'" label="Nombre Plural *" [error]="form.controls['namePlural']"
+							>
+							</app-form-field-input>
+						</div>
+
+						<div class="col-12">
+							<app-form-field-input appearance="outline" formControlName="symbol"
+							[type]="'text'" label="Simbolo *" [error]="form.controls['symbol']"
+							>
+							</app-form-field-input>
+						</div>
+
+						<div class="col-12">
+							<app-form-field-checkbox
+								formControlName="testing"
+								label="Testing"
+							></app-form-field-checkbox>
+						</div>
+
+						<div class="col-12">
+							<div class="d-flex buttons-submit">
+								<button
+									(click)="handleCancel()"
+									mat-stroked-button
+									color="warn"
+								>
+									CANCELAR
+								</button>
+								<button
+									(click)="
+										pageType == 'new'
+											? handleNewItem()
+											: handleUpdItem()
+									"
+									#submit
+									[disabled]="!form.valid"
+									mat-raised-button
+									color="primary"
+									>
+									{{ pageType == "new" ? "REGISTRAR" : "ACTUALIZAR" }}
+								</button>
+							</div>
+						</div>
+					</div>
+				</mat-card>
+			</form>
+
+		</div>
+	</div>
+</div>
