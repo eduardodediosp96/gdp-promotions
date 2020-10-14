@@ -55,14 +55,9 @@ export class TemplatesFiltersComponent implements OnInit {
       console.log('KEY:',x[0])
       console.log('VALOR:',x[1])
       console.log('TIPO:',typeof(x[1]))
-       if(x[1] != '' && typeof(x[1])!='number'){
+      if(x[1] != '' && x[1] != [] &&  x[1] != undefined && x[1] != -1 && x[1] != -'all'){
         this.filterKeys.push(x[0])
         this.filterValues.push(x[1])
-      }else if(typeof(x[1]) =='number'){
-        if(x[1] > 0){
-          this.filterKeys.push(x[0])
-          this.filterValues.push(x[1])
-        }
       }
     });
 
@@ -75,7 +70,6 @@ export class TemplatesFiltersComponent implements OnInit {
   }
 
   changeDate(event){
-    console.log('what fue mongolito??')
     console.log(event)
     var inpuName = (event.controlName || '')
     this.formFilter.get(inpuName).setValue(event.value.format(moment.HTML5_FMT.DATE))

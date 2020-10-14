@@ -1,3 +1,8 @@
+import { fromCopiedResolver } from './resolver/fromCopied.resolver';
+import { copyPromotion } from './../../shared/common/services/copy.service';
+import { fromTemplateResolver } from './resolver/fromTemplate.resolver';
+import { resourcesResolver } from './resolver/resoruces.resolver';
+import { promotionResolver } from './resolver/promotion.resolver';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
@@ -34,6 +39,13 @@ import { PromotionsFiltersComponent } from './promotions-filters/promotions-filt
     MaterialModule,
     FroalaEditorModule.forRoot(),
     FroalaViewModule.forRoot()
+  ],
+  providers: [
+    promotionResolver,
+    resourcesResolver,
+    fromTemplateResolver,
+    fromCopiedResolver,
+    copyPromotion
   ]
 })
 export class promotionModule { }

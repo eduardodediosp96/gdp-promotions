@@ -187,7 +187,7 @@ export class templateComponent implements OnInit {
   }
 
   handleNew(event: any): void {
-    this.router.navigate([`/promotion/write/new`]);
+    this.router.navigate([`/promotion/fomrtemp/new`]);
   }
 
   handleAction(event): void {
@@ -196,8 +196,8 @@ export class templateComponent implements OnInit {
     this[action.function](event.row);
   }
 
-  handleEdit(row: Itemplate): void {
-    this.router.navigate([`/promotion/write/${row.templateId}`]);
+  handleCreateUsing(row: Itemplate): void {
+    this.router.navigate([`/promotion/fomrtemp/${row.templateId}`]);
   }
 
   handleActive(item: Itemplate): void {

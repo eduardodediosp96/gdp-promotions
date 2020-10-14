@@ -27,6 +27,8 @@ export class templateService {
   }
 
   item({ id, headers = [] }) {
+    console.log('este es el id',id)
+    console.log('esta es la uri',`/${this.SUBJECT}/${id}`)
     return this.http.get<Itemplate>({
       nameAPI: ApiNames.multilanguage,
       urlOrPath: `/${this.SUBJECT}/${id}`,

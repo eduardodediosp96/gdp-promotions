@@ -1,3 +1,4 @@
+import { copyPromotion } from './../../shared/common/services/copy.service';
 import { FilterResources } from './interfaces/filterResources';
 import { PromotionFilter } from './interfaces/promotionFilter.interface';
 import { Component, OnInit, ViewChild } from '@angular/core';
@@ -91,6 +92,7 @@ export class promotionComponent implements OnInit {
   filtersAllowed = [];
   filters =[]
   formFilter:FormGroup;
+  copiedId:number
   resources: FilterResources = new FilterResources();
 
   @ViewChild(TablePaginationComponent)
@@ -103,10 +105,14 @@ export class promotionComponent implements OnInit {
     private toast: ToasterService,
     private confirmSvc: ConfirmDialogService,
     private formBuilder: FormBuilder,
+    private copySvc: copyPromotion,
   ) {
     this.handlePromotion();
     this.handleFilters();
     this.formFilter = this.createFilerForm(new PromotionFilter())
+    this.copySvc.getCopiedId().subscribe(x =>{
+      this.copiedId = x
+   })
   }
 
   ngOnInit(): void {
@@ -127,8 +133,8 @@ export class promotionComponent implements OnInit {
     target_users: [model.enableUsers],
     platforms: [model.processors],
     processors: [model.processors],
-    active: ['0'],
-    condition: ['0'],
+    active: null,
+    condition: null,
     tags: [model.tags],
     });
   }
@@ -209,7 +215,9 @@ export class promotionComponent implements OnInit {
   }
 
   handleNew(event: any): void {
-    this.router.navigate([`/promotion/write/new`]);
+    console.log('el id q copiamos es! ',this.copiedId)
+    this.router.navigate([`/promotion/copiedby/new`]);
+    // this.router.navigate([`/promotion/write/new`]);
   }
 
   handleAction(event): void {
@@ -219,7 +227,7 @@ export class promotionComponent implements OnInit {
   }
 
   handleEdit(row: Ipromotion): void {
-    this.router.navigate([`/promotion/write/${row.codeId}`]);
+    this.router.navigate([`/promotion/write/${row.promotionId}`]);
   }
 
   handleActive(item: Ipromotion): void {
@@ -228,7 +236,7 @@ export class promotionComponent implements OnInit {
       .pipe(
         filter((confirm) => confirm),
         switchMap(() => {
-          return this.promotionSvc.activateItem({ id: item.codeId });
+          return this.promotionSvc.activateItem({ id: item.promotionId });
         })
       )
       .subscribe({
@@ -248,7 +256,7 @@ export class promotionComponent implements OnInit {
       .pipe(
         filter((confirm) => confirm),
         switchMap(() => {
-          return this.promotionSvc.deactivateItem({ id: item.codeId });
+          return this.promotionSvc.deactivateItem({ id: item.promotionId });
         })
       )
       .subscribe({
@@ -262,8 +270,10 @@ export class promotionComponent implements OnInit {
       });
   }
 
-  handleCopy(){
-
+  handleCopy(row: Ipromotion){
+    this.copySvc.updatedCopiedId(row.promotionId)
+    console.log('id copiado ',this.copySvc.getCopiedId())
+    this.toast.success( { message: `Se copió el código (${row.code})` } );
   }
 
 }

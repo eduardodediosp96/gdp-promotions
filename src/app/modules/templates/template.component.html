@@ -1,4 +1,4 @@
-<app-title title="Promotions"></app-title>
+<app-title title="Templates"></app-title>
 <mat-card class="mt-2 animate__animated  animate__fadeInUp">
     <app-template-filters (sendFilters)="handleFilter($event)" [formFilter]="formFilter" visible="true" [resources]="resources"></app-template-filters>
     <app-table-pagination [tableId]="config.dataTable.tableId" [columns]="config.dataTable.columns" [pageSizeOptions]="config.dataTable.pageSizeOptions" [pageSize]="config.dataTable.pageSizeDefault" [actions]="config.dataTable.actionColumn" [index]="config.dataTable.indexColumn"

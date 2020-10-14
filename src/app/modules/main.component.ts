@@ -15,9 +15,9 @@ export class MainComponent implements OnInit {
       name: 'Promociones',
       items: [
         // { icon: 'language', link: '/languages', label: 'Lenguages' },
-        { icon: 'emoji_flags', link: '/country', label: 'Paises' },
-        { icon: 'emoji_flags', link: '/promotion', label: 'Promociones' },
-        { icon: 'emoji_flags', link: '/template', label: 'Templates' },
+        // { icon: 'emoji_flags', link: '/country', label: 'Paises' },
+        { icon: 'confirmation_number', link: '/promotion', label: 'Promociones' },
+        { icon: 'art_track', link: '/template', label: 'Templates' },
         // { icon: 'phone', link: '/calling-codes', label: 'Codigos de llamada' },
         // { icon: 'monetization_on', link: '/currencies', label: 'Monedas' },
         // { icon: 'portrait', link: '/idents', label: 'Identificaciones' },

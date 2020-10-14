@@ -10,7 +10,7 @@
                             </h3>
                         </div>
                         <div class="col-3">
-                            <app-form-field-input appearance="outline" formControlName="code" [type]="'text'" label="Codigo de Promocion" [error]="form.controls['code']" [isReadonly]="pageType != 'new'">
+                            <app-form-field-input appearance="outline" formControlName="code" [type]="'text'" label="Codigo de Promocion" [error]="form.controls['code']">
                             </app-form-field-input>
                         </div>
                         <div class="col-3">
@@ -121,7 +121,7 @@
                             </app-form-field-input>
                         </div>
                         <div class="col-3">
-                            <app-form-field-select appearance="outline" [options]="resources.enableUsers" formControlName="enableUsers" multiselect="true" label="Target Users" [error]="form.controls['enableUsers']" display="name" key="elementId">
+                            <app-form-field-select appearance="outline" [options]="resources.enableUsers" formControlName="enableUsers" label="Target Users" [error]="form.controls['enableUsers']" display="name" key="elementId">
                             </app-form-field-select>
                         </div>
                         <div class="col-3">

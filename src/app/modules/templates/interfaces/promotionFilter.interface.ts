@@ -35,8 +35,8 @@ export class PromotionFilter {
   enableUsers=[];
   platforms = [];
   processors = [];
-  active = 0;
-  condition = 0;
+  active = null;
+  condition = null;
   tags = [];
 
   constructor(model?) {

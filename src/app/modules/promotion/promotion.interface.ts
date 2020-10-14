@@ -8,6 +8,7 @@ import { Ievent } from './interfaces/event.interface';
 export interface Ipromotion {
   code?: string;
   codeId?: number;
+  promotionId?: number;
   currencyId: string;
   typeId: string;
   template: string;

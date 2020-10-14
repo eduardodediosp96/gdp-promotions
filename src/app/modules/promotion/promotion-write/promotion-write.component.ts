@@ -23,6 +23,7 @@ import {MatAutocompleteSelectedEvent, MatAutocomplete} from '@angular/material/a
 import {MatChipInputEvent} from '@angular/material/chips';
 import {Observable} from 'rxjs';
 import {startWith} from 'rxjs/operators';
+import { ConstantPool } from '@angular/compiler';
 export interface Vegetable {
   name: string;
 }
@@ -35,6 +36,7 @@ const moment =  _moment;
 export class promotionWriteComponent implements OnInit {
 
   id:any;
+  itsEverythingCharged:boolean = false
   keyParam:any;
   statusKey = '';
   statusValue = '';
@@ -55,6 +57,8 @@ export class promotionWriteComponent implements OnInit {
   tabs = [];
   allTags: string[] = [];
   form:FormGroup;
+  loadedPromo: Ipromotion;
+
   @ViewChild('tagInput') tagInput: ElementRef<HTMLInputElement>;
   @ViewChild('auto') matAutocomplete: MatAutocomplete;
 
@@ -64,35 +68,54 @@ export class promotionWriteComponent implements OnInit {
     private promotionSvc: promotionService,
     private formBuilder: FormBuilder,
     private toast: ToasterService,
+    private route: ActivatedRoute
   ) {
-    this.handleResources();
-    this.handleLoadElement();
-    // this.createInformationArrayForm();
+    route.data
+    .subscribe(route =>{
+      console.log('q fue del resolver',route)
+      this.resources =  route['resoruces'].data
+      route['promotion']?this.loadedPromo = route['promotion'].data:''
+      if(this.loadedPromo == null){
+        this.form = this.createForm(new Promotion())
+      }else{
+        var aux: any = new Promotion(route['promotion'].data)
+        console.log('se pudo parcear a promotion oobject??', aux.item)
+        this.form = this.createForm(new Promotion(aux.item))
+      }
+      this.createInformationArrayForm()
+      console.log('estos son los recurso ya cargados',this.resources)
+      console.log('estos es el usuario que viene',this.loadedPromo)
+      console.log('este es el form ya creado',this.form.value)
+    })
   }
 
   ngOnInit(): void {
-    this.whenSelectorsTurnCustomized();
-    // this.createInformationArrayForm
   }
 
-// FORM CREATE FUNCTIONS
+  ngAfterViewInit(): void {
+      this.whenSelectorsTurnCustomized()
+  }
+
+  // FORM CREATE FUNCTIONS
   get information() {
     return this.form.get('information') as FormArray
   }
 
   createInformationArrayForm() {
-    console.log('entra o no entra??')
+    console.log('para este punto tengo los recursos??: ')
     console.log(this.resources.langs)
-    return this.resources.langs.map( x => {
+    this.resources.langs.map( x => {
       const fg = this.formBuilder.group({
         langId: x.langId,
         text:''
       })
       this.information.push(fg)
     })
+    // console.log('termine de coloacar arrays en el form')
   }
 
   createForm(model: Promotion): FormGroup {
+    // validando items esternos desde load
     return this.formBuilder.group({
       code: [model.code, Validators.compose( [ MyValidator.required, MyValidator.minLength(12) ] ) ],
       currencyId: [model.currencyId, Validators.compose( [ MyValidator.required] ) ],
@@ -131,24 +154,7 @@ export class promotionWriteComponent implements OnInit {
     });
   }
 
-// HANDLE FUNCTIONS
-  handleResources() {
-    let filters: { key: string,  val: string }[] = [];
-    this.statusKey && this.statusValue && filters.push( { key: `${this.statusKey}`,  val: `${this.statusValue}`} );
-    this.filterKey && this.filterValue && filters.push( { key: `${this.filterKey}`,  val: `${this.filterValue}`} );
-    return this.promotionSvc.resources( { headers: filters.length ? [{ key: 'filters', val: JSON.stringify(filters) }] : [] } )
-    .subscribe({
-      next: (result) => {
-        this.toast.success( { message: result['kindMessage'] } );
-        this.resources = new Resources(result.data);
-      },
-      error: (err) => {
-        this.resources = new Resources();
-        this.toast.error( { message: err['kindMessage'] } );
-      }
-    });
-  }
-
+  // HANDLE FUNCTIONS
   handleNewItem(): void {
     if (!this.form.valid) return;
     // Validar el formulario a entregar
@@ -199,46 +205,11 @@ export class promotionWriteComponent implements OnInit {
     this.router.navigate(['/promotion']);
   }
 
-  handleLoadElement() {
-    return this.routeparam({ key: 'id' }).subscribe({
-      next: (result) => {
-        console.log('en el servicio', this.keyParam)
-        if(this.keyParam != 'new'){
-          this.pageType = 'upd';
-          // alert('vengo de una pagina existente')
-          this.promotionItem({ id:this.keyParam }).subscribe((promotion: Ipromotion) => {
-            this.form = this.createForm(new Promotion(promotion));
-            this.createInformationArrayForm()
-          });
-        } else {
-          // alert('vengo de una pagina nueva')
-          this.pageType = 'new';
-          this.form = this.createForm(new Promotion());
-          this.createInformationArrayForm()
-        }
-      },
-      error: (err) => {
-        this.form = this.createForm(new Promotion());
-        this.createInformationArrayForm()
-        this.toast.error( { message: err['kindMessage'] } );
-      }
-
-    })
-  }
 
   routeparam({ key }) {
     return this.activatedRoute.params.pipe(
       map((params) => {
         this.keyParam = params[key];
-      })
-    );
-  }
-
-  promotionItem({ id }) {
-    return this.promotionSvc.item({ id }).pipe(
-      map((result) => {
-
-        return result.data.item;
       })
     );
   }
@@ -291,21 +262,55 @@ export class promotionWriteComponent implements OnInit {
   }
 
   //VALIDATIONS
-  whenSelectorsTurnCustomized(){
-    this.form.get('quantityByUserSelector').valueChanges.subscribe(val => {
-      if(this.form.get('quantityByUserSelector').value != -1){
-        this.form.get('quantityByUser').setValue(this.form.get('quantityByUserSelector').value)
-      }
-    })
-    this.form.get('quantityTotalSelector').valueChanges.subscribe(val => {
-      if(this.form.get('quantityTotalSelector').value != -1){
-        this.form.get('quantityTotal').setValue(this.form.get('quantityTotalSelector').value)
-      }
-    })
-    this.form.get('frequencySelector').valueChanges.subscribe(val => {
-      if(this.form.get('frequencySelector').value != -1){
-        this.form.get('frequency').setValue(this.form.get('frequencySelector').value)
-      }
+    whenSelectorsTurnCustomized(){
+      this.form.get('quantityByUserSelector').valueChanges.subscribe(val => {
+        if(this.form.get('quantityByUserSelector').value != -1){
+          this.form.get('quantityByUser').setValue(this.form.get('quantityByUserSelector').value)
+        }
+      })
+      this.form.get('quantityTotalSelector').valueChanges.subscribe(val => {
+        console.log('entro')
+        if(this.form.get('quantityTotalSelector').value != -1){
+          this.form.get('quantityTotal').setValue(this.form.get('quantityTotalSelector').value)
+        }
+      })
+      this.form.get('frequencySelector').valueChanges.subscribe(val => {
+        if(this.form.get('frequencySelector').value != -1){
+          this.form.get('frequency').setValue(this.form.get('frequencySelector').value)
+        }
+      })
+      this.form.get('amountEnd').valueChanges.subscribe(val => {
+        if(this.form.get('amountEnd').value != null  ){
+          this.form.get('isThereFinalAmount').setValue(true)
+        }
+      })
+      this.form.get('amountEnd').valueChanges.subscribe(val => {
+        if(this.form.get('amountEnd').value != null || this.form.get('amountEnd').value != ''  ){
+          this.form.get('isThereFinalAmount').setValue(true)
+        }
+      })
+      this.form.get('paymentLimit').valueChanges.subscribe(val => {
+        if(this.form.get('paymentLimit').value != null || this.form.get('bonus').value != ''  ){
+          this.form.get('isTherePaymentLimit').setValue(true)
+        }
+      })
+    }
+
+  loadCustomControls(model: Ipromotion){
+    this.tags = model.tags
+    model.information.map((x : any,index) =>{
+      console.log('x',x)
+      console.log('info',this.information)
+      console.log('info',this.information.controls)
+      console.log('vaa',this.information.controls)
+
+      this.information.controls[index].value.map(y => {
+        console.log('a ver y.get(langId).value ',y.get('langId').value)
+        console.log('a ver x.langId',x.langId)
+        if(y.get('langId').value == x.langId){
+          y.get('text').setValue(x.text)
+        }
+     })
     })
   }
 }

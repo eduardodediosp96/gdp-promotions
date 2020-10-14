@@ -36,7 +36,6 @@ export const config = {
   dataTable: {
     tableId: 'template',
     columns: [
-      { header: 'Moneda', align: 'left', key: 'codeStr', width: '100', show: true },
       { header: 'ID', align: 'left', key: 'templateId', width: '80', show: false },
       { header: 'Nombre', align: 'left', key: 'name', width: '260', show: true },
       { header: 'Moneda', align: 'left', key: 'currencyId', width: '100', show: true },

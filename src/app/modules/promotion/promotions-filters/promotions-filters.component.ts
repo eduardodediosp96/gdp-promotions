@@ -55,14 +55,15 @@ export class PromotionsFiltersComponent implements OnInit {
       console.log('KEY:',x[0])
       console.log('VALOR:',x[1])
       console.log('TIPO:',typeof(x[1]))
-       if(x[1] != '' && typeof(x[1])!='number'){
+      console.log('numero de caracteres:', x[1])
+      console.log("The value null")
+      console.log(x[1]==undefined) // true
+      console.log(x[1]=="") // false
+      console.log(x[1]=="") // false
+
+       if(x[1] != '' && x[1] != [] &&  x[1] != undefined && x[1] != -1 && x[1] != -'all'){
         this.filterKeys.push(x[0])
         this.filterValues.push(x[1])
-      }else if(typeof(x[1]) =='number'){
-        if(x[1] > 0){
-          this.filterKeys.push(x[0])
-          this.filterValues.push(x[1])
-        }
       }
     });
 
