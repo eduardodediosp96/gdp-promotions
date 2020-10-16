@@ -15,6 +15,7 @@ export class TemplatesFiltersComponent implements OnInit {
   @Input() formFilter: FormGroup;
   @Input() resources: FilterResources = new FilterResources();
   @Output() sendFilters = new EventEmitter();
+  @Output() inputSearching = new EventEmitter();
   visible:boolean = false;
   filterKeys = []
   filterValues = []
@@ -24,13 +25,16 @@ export class TemplatesFiltersComponent implements OnInit {
 
   ngOnInit(): void {
     this.createFilterParams()
+    this.formFilter.get('templateName').valueChanges.subscribe(val => {
+      this.inputSearching.emit(val)
+    })
   }
 
   createFilterParams(){
     const hasWord = (str, word) => str.includes(word);
     this.formFilter.valueChanges.subscribe(val => {
       var result = Object.keys(val).map((key) => {
-        if(!hasWord(key, 'Selector')){
+        if(!hasWord(key, 'Selector') && key!='templateName'){
           this.filterParmas[key]=val[key]
         }
         else{

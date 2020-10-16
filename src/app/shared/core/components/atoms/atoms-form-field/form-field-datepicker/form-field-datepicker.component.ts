@@ -46,6 +46,9 @@ export class FormFieldDatepickerComponent implements ControlValueAccessor, OnIni
   @Input() placeholder: string;
   @Input() icon: string;
   @Input() alignIcon: string;
+  @Input() minDate = moment().add(-120, 'M')
+  @Input() maxDate = moment().add(120, 'M')
+
   //type input
   @Input() type: string;
   //mask input

@@ -3,6 +3,7 @@ export interface Iresources {
   types: Array<string>;
   events : Array<string>;
   enableUsers:Array<string>;
+  ptAppliesCoupon:Array<string>;
   platforms : Array<string>;
   processors : Array<string>;
   tags : Array<string>;
@@ -13,6 +14,7 @@ export class Resources {
   types= [];
   events = [];
   enableUser = [];
+  ptAppliesCoupon = [];
   platforms = [];
   processors = [];
   tags = [];

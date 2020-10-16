@@ -22,7 +22,7 @@ export interface Ipromotion {
   quantityByIp: string,
   quantityByUser: string,
   quantityTotal: string,
-  frequency: string;
+  frequency: number;
   restrictionFactor: number,
   appliesTo: string,
   enableUsers:Array<string>;
@@ -53,7 +53,7 @@ export class Promotion {
   quantityByIp= 0;
   quantityByUser= "";
   quantityTotal= "";
-  frequency= "";
+  frequency= 0;
   restrictionFactor= 0;
   appliesTo= "";
   enableUsers= [];

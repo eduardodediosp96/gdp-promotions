@@ -10,15 +10,15 @@
                             </h3>
                         </div>
                         <div class="col-3">
-                            <app-form-field-input appearance="outline" formControlName="code" [type]="'text'" label="Codigo de Promocion" [error]="form.controls['code']">
+                            <app-form-field-input appearance="outline" formControlName="code" [type]="'text'" label="Codigo de Promocion" [error]="form.controls['code']" [isReadonly]="pageType == 'edit'">
                             </app-form-field-input>
                         </div>
                         <div class="col-3">
-                            <app-form-field-select appearance="outline" [options]="resources.currencies" formControlName="currencyId" label="Monedas" [error]="form.controls['currencyId']" display="namePlural" key="currencyId">
+                            <app-form-field-select appearance="outline" [options]="resources.currencies" formControlName="currencyId" label="Monedas" [error]="form.controls['currencyId']" display="namePlural" key="currencyId" [isDisabled]="(pageType == 'edit')">
                             </app-form-field-select>
                         </div>
                         <div class="col-3">
-                            <app-form-field-select appearance="outline" [options]="resources.types" formControlName="typeId" label="Tipo" [error]="form.controls['typeId']" display="name" key="typeId">
+                            <app-form-field-select appearance="outline" [options]="resources.types" formControlName="typeId" label="Tipo" [error]="form.controls['typeId']" display="name" key="typeId" [isDisabled]="(pageType == 'edit')">
                             </app-form-field-select>
                         </div>
                         <div class="col-3">
@@ -40,12 +40,12 @@
                                     </app-form-field-datepicker>
                                 </div>
                                 <div class="col-6">
-                                    <app-form-field-datepicker (changeValue)="changeDate($event)" appearance="outline" formControlName="lifeEnd" inputName="lifeEnd" [type]="'text'" label="To">
+                                    <app-form-field-datepicker [minDate]="minDate" (changeValue)="changeDate($event)" appearance="outline" formControlName="lifeEnd" inputName="lifeEnd" [type]="'text'" label="To">
                                     </app-form-field-datepicker>
                                 </div>
                             </div>
                         </div>
-                        <div class="col-6">
+                        <div class="col-6" *ngIf="!(form.get('typeId').value == 'topup' || form.get('typeId').value == 'coupon')">
                             <div class="row">
                                 <div class="col-5">
                                     <h3>
@@ -55,11 +55,11 @@
                                 <div class="col-7 d-flex justify-content-center flex-column">
                                     <mat-slide-toggle formControlName="isThereFinalAmount">Add final amount</mat-slide-toggle>
                                 </div>
-                                <div class="col-6">
+                                <div *ngIf="!(form.get('typeId').value == 'topup' || form.get('typeId').value == 'coupon')" class="col-6">
                                     <app-form-field-input appearance="outline" formControlName="amountStart" [type]="'numeric'" label="Monto Inicial*" [error]="form.controls['amountStart']">
                                     </app-form-field-input>
                                 </div>
-                                <div [hidden]="!form.get('isThereFinalAmount').value" class="col-6">
+                                <div [hidden]="!form.get('isThereFinalAmount').value" *ngIf="!(form.get('typeId').value == 'topup' || form.get('typeId').value == 'coupon')" class="col-6">
                                     <app-form-field-input appearance="outline" formControlName="amountEnd" [type]="'numeric'" label="Monto Final*" [error]="form.controls['amountEnd']" mask="separator.2">
                                     </app-form-field-input>
                                     <!-- <app-form-field-conditional-input appearance="outline" formControlName="finalAmount" [type]="'text'" label="Final Amount *" [error]="form.controls['finalAmount']">
@@ -80,9 +80,10 @@
                                     <mat-slide-toggle formControlName="isTherePaymentLimit">add payment limit</mat-slide-toggle>
                                 </div>
                                 <div class="col-3">
-                                    <app-form-field-input appearance="outline" formControlName="bonus" [type]="'text'" label="Bonus *" [error]="form.controls['bonus']" mask="separator.2">
+                                    <app-form-field-input appearance="outline" formControlName="bonus" [suffix]="suffix" [type]="'text'" label="Bonus *" [error]="form.controls['bonus']" mask="separator">
                                     </app-form-field-input>
                                 </div>
+
                                 <div class="col-3">
                                     <app-form-field-input [hidden]="!form.get('isTherePaymentLimit').value" appearance="outline" formControlName="paymentLimit" [type]="'text'" label="Payment Limit" [error]="form.controls['paymentLimit']" mask="separator.2">
                                     </app-form-field-input>
@@ -104,7 +105,8 @@
                                     </app-form-field-input>
                                 </div>
                                 <div class="col-3">
-                                    <app-form-field-select [hidden]="!form.get('playthrough').value" appearance="outline" [options]="resources.ptApplies" formControlName="appliesTo" label="Applies To" [error]="form.controls['appliesTo']" display="name" key="elementId">
+                                    <app-form-field-select [hidden]="!form.get('playthrough').value" appearance="outline" [options]="(form.get('typeId').value == 'topup' || form.get('typeId').value == 'coupon')?resources.ptAppliesCoupon:resources.ptApplies" formControlName="appliesTo" label="Applies To"
+                                        [error]="form.controls['appliesTo']" display="name" key="elementId">
                                     </app-form-field-select>
                                 </div>
                             </div>
@@ -121,7 +123,7 @@
                             </app-form-field-input>
                         </div>
                         <div class="col-3">
-                            <app-form-field-select appearance="outline" [options]="resources.enableUsers" formControlName="enableUsers" label="Target Users" [error]="form.controls['enableUsers']" display="name" key="elementId">
+                            <app-form-field-select multiselect="true" appearance="outline" [options]="resources.enableUsers" formControlName="enableUsers" label="Target Users" [error]="form.controls['enableUsers']" display="name" key="elementId">
                             </app-form-field-select>
                         </div>
                         <div class="col-3">
@@ -136,7 +138,7 @@
                             <app-form-field-select appearance="outline" [options]="resources.quantities" formControlName="quantityByUserSelector" label="User Redemptions" [error]="form.controls['quantityByUserSelector']" display="name" key="elementId">
                             </app-form-field-select>
                         </div>
-                        <div [hidden]="form.get('quantityByUserSelector').value != -1" class="col-3">
+                        <div [hidden]="form.get('quantityByUserSelector').value != -1" class="col-2">
                             <app-form-field-input appearance="outline" formControlName="quantityByUser" [type]="'text'" [error]="form.controls['quantityByUser']" mask="separator.2">
                             </app-form-field-input>
                         </div>
@@ -144,16 +146,16 @@
                             <app-form-field-select appearance="outline" [options]="resources.quantities" formControlName="quantityTotalSelector" label="Total Redemptions" [error]="form.controls['quantityTotal']" display="name" key="elementId">
                             </app-form-field-select>
                         </div>
-                        <div [hidden]="form.get('quantityTotalSelector').value != -1" class="col-3">
+                        <div [hidden]="form.get('quantityTotalSelector').value != -1" class="col-2">
                             <app-form-field-input appearance="outline" formControlName="quantityTotal" [type]="'text'" label="" [error]="form.controls['quantityTotal']" mask="separator.2">
                             </app-form-field-input>
                         </div>
                         <div class="col-3">
-                            <app-form-field-select appearance="outline" [options]="resources.frecuencies" formControlName="frequencySelector" label="Frequency" [error]="form.controls['frequencySelector']" display="name" key="elementId">
+                            <app-form-field-select *ngIf="form.get('quantityByUserSelector').value != 1" appearance="outline" [options]="resources.frecuencies" formControlName="frequencySelector" label="Frequency" [error]="form.controls['frequencySelector']" display="name" key="elementId">
                             </app-form-field-select>
                         </div>
-                        <div [hidden]="form.get('frequencySelector').value != -1" class="col-3">
-                            <app-form-field-input appearance="outline" formControlName="frequency" [type]="'text'" label="" [error]="form.controls['frequency']" mask="separator.2">
+                        <div [hidden]="form.get('frequencySelector').value != -1" class="col-2">
+                            <app-form-field-input suffix=" hrs" *ngIf="form.get('quantityByUserSelector').value != 1" appearance="outline" formControlName="frequency" [type]="'text'" label="" [error]="form.controls['frequency']" mask="separator.2">
                             </app-form-field-input>
                         </div>
                     </div>
@@ -196,17 +198,20 @@
 									CANCELAR
 								</button>
                                 <button (click)="
-										pageType == 'new'
-											? handleNewItem()
-											: handleUpdItem()
+										pageType == 'edit'
+											? handleUpdItem()
+											: handleNewItem()
 									" #submit [disabled]="!form.valid" mat-raised-button color="primary">
-									{{ pageType == "new" ? "REGISTRAR" : "ACTUALIZAR" }}
+									{{ pageType == "edit" ? "ACTUALIZAR" : "REGISTRAR" }}
 								</button>
                             </div>
                         </div>
                     </div>
                     <p>
                         Form Status: {{ form.value | json }}
+                    </p>
+                    <p>
+                        Form Status: {{ pageType }}
                     </p>
                 </mat-card>
             </form>

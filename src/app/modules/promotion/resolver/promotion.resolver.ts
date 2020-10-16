@@ -1,3 +1,4 @@
+import { copyPromotion } from './../../../shared/common/services/copy.service';
 import { Ipromotion, Promotion } from './../promotion.interface';
 import { promotionService } from '../promotion.service';
 import { Injectable } from '@angular/core';
@@ -10,20 +11,18 @@ import {
 
 @Injectable()
 export class promotionResolver implements Resolve<any> {
-  constructor(private service: promotionService){}
+  constructor(private service: promotionService, private copySvc: copyPromotion){}
   resolve(
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot
   ): Observable<any> {
-    // return this.service.getProperty(route.params['id'])
-    // var resolver:Observable<any> = {
-    // 'resources':this.service.resources({ headers:  [] }),
-    // 'loadedUser':this.service.item(route.params['id'])
-    // }
     var item: any = null;
-    console.log('muestrame la ruta mierda', route.params)
-    if(route.params['id'] != 'new')
-    item = this.service.item({id: route.params['id'], headers:  [] })
+    if(route.params['id'] != 'new'){
+      this.copySvc.updatedPromotionWhiteAction('edit')
+      item = this.service.item({id: route.params['id'], headers:  [] })
+    }else {
+      this.copySvc.updatedPromotionWhiteAction('new')
+    }
     return item
   }
 }

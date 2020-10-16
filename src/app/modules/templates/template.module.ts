@@ -1,3 +1,4 @@
+import { copyPromotion } from './../../shared/common/services/copy.service';
 import { TemplatesFiltersComponent } from './template-filters/template-filters.component';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
@@ -27,6 +28,9 @@ import { MaterialModule } from '../../shared/core/ui-kit/material.module';
     FormsModule,
     ReactiveFormsModule,
     MaterialModule,
+  ],
+  providers: [
+    copyPromotion
   ]
 })
 export class templateModule { }

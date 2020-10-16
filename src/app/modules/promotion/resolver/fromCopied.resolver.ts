@@ -18,10 +18,10 @@ export class fromCopiedResolver implements Resolve<any> {
     state: RouterStateSnapshot
   ): Observable<any> {
     var num = 0
+    this.copySvc.updatedPromotionWhiteAction('copy')
     this.copySvc.getCopiedId().subscribe(x =>{
       num = x
     })
-    console.log("recontra mega gaaaaaa",num)
     const item = this.service.item({id: num, headers:  [] })
     return item
   }

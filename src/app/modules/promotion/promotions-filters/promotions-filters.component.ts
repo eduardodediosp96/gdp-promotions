@@ -15,22 +15,27 @@ export class PromotionsFiltersComponent implements OnInit {
   @Input() formFilter: FormGroup;
   @Input() resources: FilterResources = new FilterResources();
   @Output() sendFilters = new EventEmitter();
+  @Output() inputSearching = new EventEmitter();
   visible:boolean = false;
   filterKeys = []
   filterValues = []
   filterParmas = [];
   constructor() {
+
   }
 
   ngOnInit(): void {
     this.createFilterParams()
+    this.formFilter.get('code').valueChanges.subscribe(val => {
+      this.inputSearching.emit(val)
+    })
   }
 
   createFilterParams(){
     const hasWord = (str, word) => str.includes(word);
     this.formFilter.valueChanges.subscribe(val => {
       var result = Object.keys(val).map((key) => {
-        if(!hasWord(key, 'Selector')){
+        if(!hasWord(key, 'Selector') && key!='code'){
           this.filterParmas[key]=val[key]
         }
         else{
@@ -81,5 +86,7 @@ export class PromotionsFiltersComponent implements OnInit {
     var inpuName = (event.controlName || '')
     this.formFilter.get(inpuName).setValue(event.value.format(moment.HTML5_FMT.DATE))
   }
+
+
 
 }

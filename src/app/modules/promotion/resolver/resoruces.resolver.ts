@@ -1,3 +1,4 @@
+import { copyPromotion } from './../../../shared/common/services/copy.service';
 import { promotionService } from '../promotion.service';
 import { Injectable } from '@angular/core';
 import { Observable } from "rxjs";
@@ -9,7 +10,7 @@ import {
 
 @Injectable()
 export class resourcesResolver implements Resolve<any> {
-  constructor(private service: promotionService){}
+  constructor(private service: promotionService, private copySvc: copyPromotion){}
   resolve(
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot

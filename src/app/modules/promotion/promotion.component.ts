@@ -82,6 +82,7 @@ export class promotionComponent implements OnInit {
        }
     ]
  })]
+ datasource
   config = config;
   statusKey = '';
   statusValue = '';
@@ -93,6 +94,7 @@ export class promotionComponent implements OnInit {
   filters =[]
   formFilter:FormGroup;
   copiedId:number
+  filerString:string
   resources: FilterResources = new FilterResources();
 
   @ViewChild(TablePaginationComponent)
@@ -139,6 +141,22 @@ export class promotionComponent implements OnInit {
     });
   }
 
+  filterByCode(event){
+    this.filerString = event
+    this.filterByCodeFunction()
+  }
+
+  filterByCodeFunction(){
+    const hasWord = (str, word) => str.includes(word);
+    var datasourceaux = []
+    this.datasource.map(x =>{
+      console.log(x.code)
+      if(hasWord(x.code.toLowerCase(),this.filerString.toLowerCase()))
+      datasourceaux.push(x)
+    })
+    this.tablePagination.chargeDataTable(datasourceaux);
+  }
+
   handleResources(): void {
     let filters: { key: string,  val: string }[] = [];
     this.statusKey && this.statusValue && filters.push( { key: `${this.statusKey}`,  val: `${this.statusValue}`} );
@@ -181,7 +199,7 @@ export class promotionComponent implements OnInit {
       next: (result) => {
         console.log('resultado', result)
         this.toast.success( { message: result['kindMessage'] } );
-        this.tablePagination.chargeDataTable(result.data.items.map(( item, i ) => {
+        this.datasource = result.data.items.map(( item, i ) => {
           let actions = config.listActions();
           !item.active && (actions.deactive.show = false);
           item.active && (actions.active.show = false);
@@ -189,8 +207,10 @@ export class promotionComponent implements OnInit {
           item['testing'] = config.testing[item.testing].label;
           item['actions'] = Object.values(actions);
           return item;
-        }));
+        })
+        this.tablePagination.chargeDataTable(this.datasource);
         this.filtersAllowed = result.filtersAllowed;
+        this.filterByCodeFunction()
       },
       error: (err) => {
         // this.loadingOverlay.hide();
@@ -215,10 +235,12 @@ export class promotionComponent implements OnInit {
   }
 
   handleNew(event: any): void {
+    this.copySvc.updatedPromotionWhiteAction('new')
     this.router.navigate([`/promotion/write/new`]);
   }
 
   handleNewCopied(event: any): void {
+    this.copySvc.updatedPromotionWhiteAction('copy')
     this.router.navigate([`/promotion/copiedby/new`]);
   }
 
@@ -229,6 +251,7 @@ export class promotionComponent implements OnInit {
   }
 
   handleEdit(row: Ipromotion): void {
+    this.copySvc.updatedPromotionWhiteAction('edit')
     this.router.navigate([`/promotion/write/${row.promotionId}`]);
   }
 

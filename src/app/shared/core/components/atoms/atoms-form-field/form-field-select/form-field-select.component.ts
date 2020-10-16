@@ -24,6 +24,7 @@ export class FormFieldSelectComponent implements ControlValueAccessor, OnInit {
   @Input() display = "display";
   @Input() key = "key";
   @Input() multiselect = false
+  @Input() disabled = false
 
   @Input() isDisabled: boolean = false;
 
@@ -31,6 +32,8 @@ export class FormFieldSelectComponent implements ControlValueAccessor, OnInit {
 
   @Input() error: any;
   @Input() errorMessage: string;
+
+  disableSelect = new FormControl(false);
 
   // value: string;
   // isDisabled: boolean;

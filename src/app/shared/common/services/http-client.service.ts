@@ -136,7 +136,7 @@ export class HttpClientService {
     urlOrPath = '',
     headers = [],
     body,
-    jsonParse = true,
+    jsonParse = false,
     addCredentials = false,
     addApiKey = false,
     addContentTypeJson = true,

@@ -31,6 +31,7 @@ export class FormFieldInputComponent implements ControlValueAccessor, OnInit {
   @Input() mask: string;
   @Input() showMaskTyped: string;
   @Input() suffix: string;
+  @Input() pattern: string;
   @Input() prefix: string;
 
 

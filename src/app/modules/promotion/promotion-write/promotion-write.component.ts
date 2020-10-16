@@ -1,3 +1,4 @@
+import { copyPromotion } from './../../../shared/common/services/copy.service';
 import { Resources } from './../interfaces/resources.interface';
 import { Promotion } from './../promotion.interface';
 import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
@@ -34,7 +35,6 @@ const moment =  _moment;
   styleUrls: ['./promotion-write.component.scss']
 })
 export class promotionWriteComponent implements OnInit {
-
   id:any;
   itsEverythingCharged:boolean = false
   keyParam:any;
@@ -44,20 +44,23 @@ export class promotionWriteComponent implements OnInit {
   filterValue = '';
   filtersAllowed = [];
   resources:any = {};
+  suffix:any = '';
   promotion: Promotion;
-  pageType = 'new';
+  pageType:string;
   visible=true
   selectable =true
   removable =true
   separatorKeysCodes: number[] = [ENTER, COMMA];
   tagsCtrl = new FormControl();
   filteredTags: Observable<string[]>;
-  tags: string[] = [];
+  tags = [];
   selectedTabs = new FormControl(0);
   tabs = [];
   allTags: string[] = [];
   form:FormGroup;
-  loadedPromo: Ipromotion;
+  loadedPromo: any;
+  unamePattern = "^[a-z0-9_]{8,15}$";
+  minDate = moment();
 
   @ViewChild('tagInput') tagInput: ElementRef<HTMLInputElement>;
   @ViewChild('auto') matAutocomplete: MatAutocomplete;
@@ -68,28 +71,38 @@ export class promotionWriteComponent implements OnInit {
     private promotionSvc: promotionService,
     private formBuilder: FormBuilder,
     private toast: ToasterService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private copySvc: copyPromotion
   ) {
+    this.copySvc.getPromotionWhiteAction().subscribe(x =>{
+      console.log('q esperas',  x)
+      this.pageType = x
+      console.log('q esperas',  this.pageType)
+   })
     route.data
     .subscribe(route =>{
-      console.log('q fue del resolver',route)
       this.resources =  route['resoruces'].data
       route['promotion']?this.loadedPromo = route['promotion'].data:''
       if(this.loadedPromo == null){
         this.form = this.createForm(new Promotion())
+        this.ifIcreate()
       }else{
+        this.id = this.loadedPromo.item.promotionId
         var aux: any = new Promotion(route['promotion'].data)
-        console.log('se pudo parcear a promotion oobject??', aux.item)
         this.form = this.createForm(new Promotion(aux.item))
       }
       this.createInformationArrayForm()
       console.log('estos son los recurso ya cargados',this.resources)
       console.log('estos es el usuario que viene',this.loadedPromo)
       console.log('este es el form ya creado',this.form.value)
+      console.log('este es el id del usuario',this.id)
     })
   }
 
   ngOnInit(): void {
+    if(this.pageType !='new'){
+      this.loadCustomControls(this.loadedPromo)
+    }
   }
 
   ngAfterViewInit(): void {
@@ -111,29 +124,60 @@ export class promotionWriteComponent implements OnInit {
       })
       this.information.push(fg)
     })
-    // console.log('termine de coloacar arrays en el form')
   }
 
   createForm(model: Promotion): FormGroup {
     // validando items esternos desde load
     return this.formBuilder.group({
-      code: [model.code, Validators.compose( [ MyValidator.required, MyValidator.minLength(12) ] ) ],
-      currencyId: [model.currencyId, Validators.compose( [ MyValidator.required] ) ],
-      typeId: [model.typeId, Validators.compose( [ MyValidator.required]) ],
+      code: [model.code, Validators.compose(
+        [MyValidator.alphanumeric,
+          MyValidator.required,
+          MyValidator.maxLength(50)
+        ])],
+      currencyId: [model.currencyId, Validators.compose(
+        [ MyValidator.required,] )],
+      typeId: [
+        model.typeId, Validators.compose(
+        [ MyValidator.required])],
       template: [model.template], //q fue?
-      description: [model.description],
-      lifeStart: [moment(model.lifeStart.split('-').reverse().join('-'),'DD-MM-YYYY'), Validators.compose( [ MyValidator.required ] ) ],
-      lifeEnd: [moment(model.lifeEnd.split('-').reverse().join('-'),'DD-MM-YYYY'), Validators.compose( [ MyValidator.required ] ) ],
-      bonus: [model.bonus, Validators.compose( [ MyValidator.required ] ) ],
-      amountStart: [model.amountStart, Validators.compose( [ MyValidator.required ] ) ],
-      amountEnd: [model.amountEnd],
-      paymentLimit: [model.paymentLimit],
-      quantityByIp: [model.quantityByIp, Validators.compose( [ MyValidator.required ] ) ],
-      quantityByUser: [model.quantityByUser],
-      quantityTotal: [model.quantityTotal],
-      frequency: [model.frequency, Validators.compose( [ MyValidator.required ] ) ],
-      restrictionFactor: [model.restrictionFactor],
-      appliesTo: [model.appliesTo],
+      description: [model.description, MyValidator.maxLength(250)],
+      lifeStart: [moment().format(moment.HTML5_FMT.DATE), Validators.compose( [ MyValidator.required ] ), ],
+      lifeEnd: [moment().add(1, 'M').format(moment.HTML5_FMT.DATE), Validators.compose( [ MyValidator.required ] ) ],
+      bonus: [model.bonus, Validators.compose( [ MyValidator.required ,MyValidator.maxLength(8) ] ) ],
+      amountStart: [model.amountStart, Validators.compose( [ MyValidator.required,MyValidator.maxLength(8) ] ) ],
+      amountEnd: [{value: model.amountEnd, disabled: true}, Validators.compose(
+        [
+          MyValidator.required,
+          MyValidator.min(model.amountStart),
+          MyValidator.maxLength(8)
+        ]
+      )],
+      paymentLimit: [{value: model.paymentLimit, disabled: true},Validators.compose(
+        [
+          MyValidator.required,
+          MyValidator.maxLength(8)
+        ]
+      )],
+      quantityByIp: [model.quantityByIp, Validators.compose( [ MyValidator.required,MyValidator.maxLength(8) ] ) ],
+      quantityByUser: [model.quantityByUser ,Validators.compose( [ MyValidator.required,MyValidator.maxLength(8) ] )],
+      quantityTotal: [model.quantityTotal,Validators.compose( [ MyValidator.required,MyValidator.maxLength(8) ] )],
+      frequency: [model.frequency,Validators.compose(
+        [
+          MyValidator.required,
+          MyValidator.maxLength(8)
+        ]
+      )],
+      restrictionFactor: [{value: model.restrictionFactor, disabled: true},Validators.compose(
+        [
+          MyValidator.required,
+          MyValidator.maxLength(8)
+        ]
+      )],
+      appliesTo: [{value: model.appliesTo, disabled: true},Validators.compose(
+        [
+          MyValidator.required,
+        ]
+      )],
       enableUsers: [model.enableUsers, Validators.compose( [ MyValidator.required ] ) ],
       active: [model.active, Validators.compose( [ MyValidator.required ] ) ],
       testing: [model.testing, Validators.compose( [ MyValidator.required ] ) ],
@@ -157,25 +201,6 @@ export class promotionWriteComponent implements OnInit {
   // HANDLE FUNCTIONS
   handleNewItem(): void {
     if (!this.form.valid) return;
-    // Validar el formulario a entregar
-    if(!this.form.get('playthrough').value){
-      this.form.removeControl('restrictionFactor')
-      this.form.removeControl('appliesTo')
-
-    }
-    if(!this.form.get('isTherePaymentLimit').value){
-      this.form.removeControl('paymentLimit')
-    }
-    if(!this.form.get('isThereFinalAmount').value){
-      this.form.removeControl('amountEnd')
-    }
-    // this.form.removeControl('quantityByUserSelector')
-    // this.form.removeControl('quantityTotalSelector')
-    // this.form.removeControl('frequencySelector')
-    // this.form.removeControl('isThereFinalAmount')
-    // this.form.removeControl('isTherePaymentLimit')
-    // this.form.removeControl('isTherePlaythrough')
-    ////////////////////////////////////
     const data = this.form.value;
     data.testing = data.testing ? 1 : 0;
     this.promotionSvc
@@ -263,56 +288,312 @@ export class promotionWriteComponent implements OnInit {
 
   //VALIDATIONS
     whenSelectorsTurnCustomized(){
+      // resources.currencies
+      this.form.get('lifeStart').valueChanges.subscribe(val => {
+        this.minDate = moment(this.form.get('lifeStart').value)
+      })
+
+      this.form.get('currencyId').valueChanges.subscribe(val => {
+        this.resources.currencies.map(x => {
+          if(x.currencyId == val)
+          this.suffix = ' '+ x.symbol
+          if(this.form.get('typeId').value == "promop")
+          this.suffix = ' %'
+        })
+      })
+
+      this.form.get('typeId').valueChanges.subscribe(val => {
+        switch (val) {
+          case 'coupon':
+            this.form.get('amountEnd').disable()
+            this.form.get('amountStart').disable()
+            this.form.get('isThereFinalAmount').disable()
+            this.form.get('amountEnd').clearValidators();
+            this.form.get('bonus').setValidators(
+              Validators.compose( [
+                MyValidator.required,
+              ],
+            ))
+            this.form.get('bonus').setValue(this.form.get('bonus').value)
+            break;
+
+          case 'topup':
+            this.form.get('amountEnd').disable()
+            this.form.get('amountStart').disable()
+            this.form.get('isThereFinalAmount').disable()
+            this.form.get('amountEnd').clearValidators();
+            this.form.get('bonus').setValidators(
+              Validators.compose( [
+                MyValidator.required,
+              ],
+            ))
+            this.form.get('bonus').setValue(this.form.get('bonus').value)
+            break;
+
+          case 'promop':
+            this.suffix = ' %'
+            this.form.get('amountEnd').enable()
+            this.form.get('amountStart').enable()
+            this.form.get('isThereFinalAmount').enable()
+            this.form.get('bonus').setValidators(
+              Validators.compose( [
+                MyValidator.required,
+                MyValidator.min(0),
+                MyValidator.max(100),
+              ],
+            ))
+            this.form.get('bonus').setValue(this.form.get('bonus').value)
+            break;
+
+          default:
+            this.form.get('amountEnd').enable()
+            this.form.get('amountStart').enable()
+            this.form.get('isThereFinalAmount').enable()
+            this.form.get('bonus').setValidators(
+              Validators.compose( [
+                MyValidator.required,
+              ],
+            ))
+            this.form.get('bonus').setValue(this.form.get('bonus').value)
+            break;
+        }
+      })
+
+      this.form.get('amountStart').valueChanges.subscribe(val => {
+          this.form.get('amountEnd').setValidators(Validators.compose(
+          [ MyValidator.maxLength(8),MyValidator.required, MyValidator.min(this.form.get('amountStart').value),
+          MyValidator.maxLength(8)
+        ]));
+          const value = this.form.get('amountEnd').value
+          this.form.get('amountEnd').setValue(value)
+      })
+
       this.form.get('quantityByUserSelector').valueChanges.subscribe(val => {
         if(this.form.get('quantityByUserSelector').value != -1){
           this.form.get('quantityByUser').setValue(this.form.get('quantityByUserSelector').value)
         }
+        if(val != '1'){
+          this.form.get('frequency').enable()
+          this.form.get('frequency').setValidators(
+            Validators.compose( [
+              MyValidator.required,
+              MyValidator.maxLength(8)
+            ],
+          ))
+          this.form.get('frequencySelector').enable()
+          this.form.get('frequencySelector').setValidators(
+            Validators.compose( [
+              MyValidator.required,
+            ],
+          ))
+        }
+          else if(val == '1'){
+            this.form.get('frequency').disable()
+            this.form.get('frequencySelector').disable()
+          }
       })
+
       this.form.get('quantityTotalSelector').valueChanges.subscribe(val => {
         console.log('entro')
         if(this.form.get('quantityTotalSelector').value != -1){
           this.form.get('quantityTotal').setValue(this.form.get('quantityTotalSelector').value)
         }
       })
+
       this.form.get('frequencySelector').valueChanges.subscribe(val => {
         if(this.form.get('frequencySelector').value != -1){
-          this.form.get('frequency').setValue(this.form.get('frequencySelector').value)
+          this.form.get('frequency').setValue(Number(this.form.get('frequencySelector').value))
         }
       })
-      this.form.get('amountEnd').valueChanges.subscribe(val => {
-        if(this.form.get('amountEnd').value != null  ){
-          this.form.get('isThereFinalAmount').setValue(true)
+
+      this.form.get('isThereFinalAmount').valueChanges.subscribe(val => {
+        if(val == true){
+          this.form.get('amountEnd').enable()
+          this.form.get('amountEnd').setValidators(
+            Validators.compose( [
+              MyValidator.required,
+              MyValidator.min(this.form.get('amountStart').value),
+              MyValidator.maxLength(8)
+            ],
+          ))
+          this.form.get('amountEnd').setValue(this.form.get('amountEnd').value)
+        }
+          else{
+            this.form.get('amountEnd').disable()
+          }
+      })
+
+      this.form.get('isTherePaymentLimit').valueChanges.subscribe(val => {
+        if(val == true){
+        this.form.get('paymentLimit').enable()
+        this.form.get('paymentLimit').setValidators(
+          Validators.compose( [
+            MyValidator.required,
+          ],
+        ))
+      }
+        else{
+          this.form.get('paymentLimit').disable()
         }
       })
-      this.form.get('amountEnd').valueChanges.subscribe(val => {
-        if(this.form.get('amountEnd').value != null || this.form.get('amountEnd').value != ''  ){
-          this.form.get('isThereFinalAmount').setValue(true)
-        }
-      })
-      this.form.get('paymentLimit').valueChanges.subscribe(val => {
-        if(this.form.get('paymentLimit').value != null || this.form.get('bonus').value != ''  ){
-          this.form.get('isTherePaymentLimit').setValue(true)
+
+      this.form.get('playthrough').valueChanges.subscribe(val => {
+        if(val == true){
+        this.form.get('restrictionFactor').enable()
+        this.form.get('restrictionFactor').setValidators(
+          Validators.compose( [
+            MyValidator.required,
+            MyValidator.maxLength(8)
+          ],
+        ))
+        this.form.get('appliesTo').enable()
+        this.form.get('appliesTo').setValidators(
+          Validators.compose( [
+            MyValidator.required,
+          ],
+        ))
+      }
+        else{
+          this.form.get('restrictionFactor').disable()
+          this.form.get('appliesTo').disable()
         }
       })
     }
 
-  loadCustomControls(model: Ipromotion){
-    this.tags = model.tags
-    model.information.map((x : any,index) =>{
-      console.log('x',x)
-      console.log('info',this.information)
-      console.log('info',this.information.controls)
-      console.log('vaa',this.information.controls)
+    loadCustomControls(model: any){
+      // suffix
+        this.resources.currencies.map(x => {
+          if(x.currencyId == model.item.currencyId)
+          this.suffix = ' '+ x.symbol
+          if(this.form.get('typeId').value == "promop")
+          this.suffix = ' %'
+        })
+      // load Tags
+      const trueTags =[]
+      if(model.item.tags != null){
+        model.item.tags.map(x =>{
+           const gaa = this.resources.tags.map( y =>{
+              if(y.tagId == x)
+              trueTags.push(y.name)
+          })
+        })
+      }
+      this.tags = trueTags
 
-      this.information.controls[index].value.map(y => {
-        console.log('a ver y.get(langId).value ',y.get('langId').value)
-        console.log('a ver x.langId',x.langId)
-        if(y.get('langId').value == x.langId){
-          y.get('text').setValue(x.text)
-        }
-     })
-    })
+       // load information
+      if(model['item'].information)
+      model['item'].information.map((x : any,index) =>{
+        console.log('x',x)
+        console.log('info agagagag',this.information)
+        console.log('info agagaggagaag',this.information.controls)
+        console.log('vaa',this.information.controls)
+
+        this.information.controls.map(y => {
+          console.log('a ver y.get(langId).value ',y.get('langId').value)
+          console.log('a ver x.langId',x.langId)
+          if(y.get('langId').value == x.langId){
+            y.get('text').setValue(x.text)
+          }
+        })
+      })
+
+    // LOAD TRUE AND FALSE SELECTS
+      if(
+      this.form.get('amountEnd').value != null &&
+      this.form.get('amountEnd').value != '' &&
+      this.form.get('paymentLimit').value >= 0
+      ){
+        this.form.get('isThereFinalAmount').setValue(true);
+        this.form.get('amountEnd').enable();
+      }
+
+      if(
+      this.form.get('paymentLimit').value != null &&
+      this.form.get('paymentLimit').value != '' &&
+      this.form.get('paymentLimit').value >= 0
+      ){
+        this.form.get('isTherePaymentLimit').setValue(true);
+        this.form.get('paymentLimit').enable()
+      }
+
+      if(
+      this.form.get('restrictionFactor').value != null &&
+      this.form.get('restrictionFactor').value != '' &&
+      this.form.get('restrictionFactor').value >= 0
+      ){
+        this.form.get('playthrough').setValue(true);
+        this.form.get('restrictionFactor').enable()
+        this.form.get('appliesTo').enable()
+      }
+
+
+    //put select boxes values
+      switch (this.form.get('quantityByUser').value) {
+        case 0:
+          this.form.get('quantityByUserSelector').setValue('0');
+          this.form.get('frequency').enable()
+          this.form.get('frequencySelector').enable()
+          break;
+
+        case 1:
+          this.form.get('quantityByUserSelector').setValue('1');
+          this.form.get('frequency').disable()
+          this.form.get('frequencySelector').disable()
+          break;
+
+        default:
+          this.form.get('quantityByUserSelector').setValue(-1);
+          this.form.get('frequency').enable()
+          this.form.get('frequencySelector').enable()
+          break;
+      }
+
+      switch (this.form.get('quantityTotal').value) {
+        case 0:
+          this.form.get('quantityTotalSelector').setValue('0');
+          break;
+
+        case 1:
+          this.form.get('quantityTotalSelector').setValue('1');
+          break;
+
+        default:
+          this.form.get('quantityTotalSelector').setValue(-1);
+          break;
+      }
+
+      switch (this.form.get('frequency').value) {
+        case 24:
+          this.form.get('frequencySelector').setValue('24');
+          break;
+
+        case 168:
+          this.form.get('frequencySelector').setValue('168');
+          break;
+
+        case 720:
+          this.form.get('frequencySelector').setValue('720');
+          break;
+
+        case 8760:
+          this.form.get('frequencySelector').setValue('8760');
+          break;
+
+        default:
+          this.form.get('frequencySelector').setValue(-1);
+          break;
+      }
   }
+
+  ifIcreate(){
+    // new
+    this.form.get('paymentLimit').disable()
+    this.form.get('appliesTo').disable()
+    this.form.get('restrictionFactor').disable()
+    this.form.get('amountEnd').disable()
+  }
+
+
 }
 
 

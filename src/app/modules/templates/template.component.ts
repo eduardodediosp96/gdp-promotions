@@ -1,3 +1,4 @@
+import { copyPromotion } from './../../shared/common/services/copy.service';
 import { promotionService } from './../promotion/promotion.service'
 import { TemplateFilter } from './interfaces/templateFilter';
 import { FilterResources } from './../promotion/interfaces/filterResources';
@@ -85,6 +86,8 @@ export class templateComponent implements OnInit {
   filterValues = [];
   filtersAllowed = [];
   filters =[]
+  datasource
+  filerString
   formFilter:FormGroup;
   resources: FilterResources = new FilterResources();
 
@@ -99,6 +102,7 @@ export class templateComponent implements OnInit {
     private toast: ToasterService,
     private confirmSvc: ConfirmDialogService,
     private formBuilder: FormBuilder,
+    private copySvc: copyPromotion
   ) {
     this.handleTemplate();
     this.handleFilters();
@@ -106,6 +110,27 @@ export class templateComponent implements OnInit {
   }
 
   ngOnInit(): void {
+  }
+
+  filterByCode(event){
+    this.filerString = event
+    this.filterByCodeFunction()
+  }
+
+  filterByCodeFunction(){
+    const hasWord = (str, word) => str.includes(word);
+    var datasourceaux = []
+    this.datasource.map(x =>{
+      if(this.filerString != "" && this.filerString != null && this.filerString != undefined && this.filerString != []){
+        console.log(x.name)
+        if(hasWord(x.name.toLowerCase(),this.filerString.toLowerCase()))
+        datasourceaux.push(x)
+      }else{
+        datasourceaux.push(x)
+      }
+
+    })
+    this.tablePagination.chargeDataTable(datasourceaux);
   }
 
   createFilerForm(model: TemplateFilter): FormGroup {
@@ -161,12 +186,14 @@ export class templateComponent implements OnInit {
       next: (result) => {
         console.log('resultado', result)
         this.toast.success( { message: result['kindMessage'] } );
-        this.tablePagination.chargeDataTable(result.data.items.map(( item, i ) => {
+        this.datasource = result.data.items.map(( item, i ) => {
           let actions = config.listActions();
           item['actions'] = Object.values(actions);
           return item;
-        }));
+        });
+        this.tablePagination.chargeDataTable(this.datasource);
         this.filtersAllowed = result.filtersAllowed;
+        this.filterByCodeFunction()
       },
       error: (err) => {
         // this.loadingOverlay.hide();
@@ -197,6 +224,7 @@ export class templateComponent implements OnInit {
   }
 
   handleCreateUsing(row: Itemplate): void {
+    this.copySvc.updatedPromotionWhiteAction('template')
     this.router.navigate([`/promotion/fomrtemp/${row.templateId}`]);
   }
 
