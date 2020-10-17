@@ -22,9 +22,10 @@ import { MaterialModule } from '../../shared/core/ui-kit/material.module';
 import { EditorModule } from '@tinymce/tinymce-angular';
 import { FroalaEditorModule, FroalaViewModule } from 'angular-froala-wysiwyg';
 import { PromotionsFiltersComponent } from './promotions-filters/promotions-filters.component';
+import { PromotionTemplateConfirmationComponent } from './promotion-template-confirmation/promotion-template-confirmation.component';
 
 @NgModule({
-  declarations: [promotionComponent, promotionWriteComponent, PromotionsFiltersComponent],
+  declarations: [promotionComponent, promotionWriteComponent, PromotionsFiltersComponent, PromotionTemplateConfirmationComponent],
   imports: [
     EditorModule,
     CommonModule,

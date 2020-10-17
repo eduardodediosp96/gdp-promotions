@@ -1,7 +1,9 @@
+import { PromotionTemplateConfirmationComponent } from './../promotion-template-confirmation/promotion-template-confirmation.component';
+import { MatDialog } from '@angular/material/dialog';
 import { copyPromotion } from './../../../shared/common/services/copy.service';
 import { Resources } from './../interfaces/resources.interface';
 import { Promotion } from './../promotion.interface';
-import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef, OnChanges } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { promotionService } from '../promotion.service';
 import { Ipromotion } from '../promotion.interface';
@@ -62,6 +64,7 @@ export class promotionWriteComponent implements OnInit {
   unamePattern = "^[a-z0-9_]{8,15}$";
   minDate = moment();
 
+
   @ViewChild('tagInput') tagInput: ElementRef<HTMLInputElement>;
   @ViewChild('auto') matAutocomplete: MatAutocomplete;
 
@@ -72,7 +75,8 @@ export class promotionWriteComponent implements OnInit {
     private formBuilder: FormBuilder,
     private toast: ToasterService,
     private route: ActivatedRoute,
-    private copySvc: copyPromotion
+    private copySvc: copyPromotion,
+    public dialog: MatDialog
   ) {
     this.copySvc.getPromotionWhiteAction().subscribe(x =>{
       console.log('q esperas',  x)
@@ -97,6 +101,13 @@ export class promotionWriteComponent implements OnInit {
       console.log('este es el form ya creado',this.form.value)
       console.log('este es el id del usuario',this.id)
     })
+
+    var tg = this.resources.tags
+    this.allTags = tg.map(x =>{ return x.name})
+    this.filteredTags = this.tagsCtrl.valueChanges.pipe(
+      startWith(null),
+      map((tag: string | null) => tag ? this._filter(tag) : this.allTags.slice()));
+
   }
 
   ngOnInit(): void {
@@ -194,22 +205,27 @@ export class promotionWriteComponent implements OnInit {
       frequencySelector:0,
       isThereFinalAmount:false,
       isTherePaymentLimit:false,
-      isTherePlaythrough:false
+      isTherePlaythrough:false,
     });
   }
 
   // HANDLE FUNCTIONS
   handleNewItem(): void {
     if (!this.form.valid) return;
-    const data = this.form.value;
-    data.testing = data.testing ? 1 : 0;
-    this.promotionSvc
-      .newItem({
-        body: data,
-      })
-      .subscribe((result) => {
-        this.router.navigate(['/promotion']);
-      });
+    this.openDialog()
+    this.form.get('template').valueChanges.subscribe( x =>{
+        const data = this.form.value;
+        data.template = x
+        data.testing = data.testing ? 1 : 0;
+        alert(data)
+        this.promotionSvc
+        .newItem({
+          body: data,
+        })
+        .subscribe((result) => {
+          this.router.navigate(['/promotion']);
+        });
+    })
   }
 
   handleUpdItem(): void {
@@ -274,10 +290,13 @@ export class promotionWriteComponent implements OnInit {
 
   selected(event: MatAutocompleteSelectedEvent): void {
     this.tags.push(event.option.viewValue);
-    this.tagInput.nativeElement.value = '';
-    this.form.get('tagsCtrl').setValue(this.tags);
     this.tagsCtrl.setValue(null);
     this.form.get('tags').setValue(this.tags);
+  }
+
+  private _filter(value: string): string[] {
+    const filterValue = value.toLowerCase();
+    return this.allTags.filter(tag => tag.toLowerCase().indexOf(filterValue) === 0);
   }
 
   //DATE FUNCTIONS
@@ -289,6 +308,27 @@ export class promotionWriteComponent implements OnInit {
   //VALIDATIONS
     whenSelectorsTurnCustomized(){
       // resources.currencies
+      // this.form.get('enableUsers').valueChanges.subscribe(val => {
+      //   const hasWord = (str, word) => str.includes(word);
+      //   console.log("enable users",val)
+      //   var auxList: Array<string> =[]
+      //   if(val.length > 1){
+      //     for (let index = 0; index < val.length; index++) {
+      //       if(index == 0 ){
+      //         if(hasWord(val[index].toLowerCase(), 'all'))
+      //         continue;
+      //       }
+      //       if(hasWord(val[index].toLowerCase(), 'all')){
+      //           auxList = ['all']
+      //           break;
+      //       }else{
+      //         auxList.push(val[index])
+      //       }
+      //     }
+      //     this.form.get('enableUsers').setValue(auxList)
+      //   }
+      // })
+
       this.form.get('lifeStart').valueChanges.subscribe(val => {
         this.minDate = moment(this.form.get('lifeStart').value)
       })
@@ -483,14 +523,7 @@ export class promotionWriteComponent implements OnInit {
        // load information
       if(model['item'].information)
       model['item'].information.map((x : any,index) =>{
-        console.log('x',x)
-        console.log('info agagagag',this.information)
-        console.log('info agagaggagaag',this.information.controls)
-        console.log('vaa',this.information.controls)
-
         this.information.controls.map(y => {
-          console.log('a ver y.get(langId).value ',y.get('langId').value)
-          console.log('a ver x.langId',x.langId)
           if(y.get('langId').value == x.langId){
             y.get('text').setValue(x.text)
           }
@@ -505,7 +538,21 @@ export class promotionWriteComponent implements OnInit {
       ){
         this.form.get('isThereFinalAmount').setValue(true);
         this.form.get('amountEnd').enable();
+      }else{
+        this.form.get('isThereFinalAmount').setValue(false);
+        this.form.get('amountEnd').disable();
       }
+
+      if(
+        this.form.get('amountStart').value != null &&
+        this.form.get('amountStart').value != '' &&
+        this.form.get('amountStart').value >= 0
+        ){
+          this.form.get('amountStart').enable();
+        }else{
+          this.form.get('amountStart').disable();
+        }
+
 
       if(
       this.form.get('paymentLimit').value != null &&
@@ -514,6 +561,9 @@ export class promotionWriteComponent implements OnInit {
       ){
         this.form.get('isTherePaymentLimit').setValue(true);
         this.form.get('paymentLimit').enable()
+      }else{
+        this.form.get('isTherePaymentLimit').setValue(false);
+        this.form.get('paymentLimit').disable();
       }
 
       if(
@@ -524,6 +574,10 @@ export class promotionWriteComponent implements OnInit {
         this.form.get('playthrough').setValue(true);
         this.form.get('restrictionFactor').enable()
         this.form.get('appliesTo').enable()
+      }else{
+        this.form.get('playthrough').setValue(false);
+        this.form.get('restrictionFactor').disable();
+        this.form.get('appliesTo').disable()
       }
 
 
@@ -591,6 +645,20 @@ export class promotionWriteComponent implements OnInit {
     this.form.get('appliesTo').disable()
     this.form.get('restrictionFactor').disable()
     this.form.get('amountEnd').disable()
+  }
+
+
+  //template confirmation dialog
+  openDialog(): void {
+    const dialogRef = this.dialog.open(PromotionTemplateConfirmationComponent, {
+      width: '250px',
+      data: { 'template': this.form.get("template").value}
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed');
+      this.form.get("template").setValue(result);
+    });
   }
 
 

@@ -1,0 +1,11 @@
+<div mat-dialog-content>
+    <p>Desea guardar su codigo como template?</p>
+    <mat-form-field>
+        <mat-label>Template Name</mat-label>
+        <input matInput [(ngModel)]="data.template">
+    </mat-form-field>
+</div>
+<div mat-dialog-actions>
+    <button mat-button (click)="onNoClick()">No Thanks</button>
+    <button [disabled]="data" mat-button [mat-dialog-close]="data.template" cdkFocusInitial>Ok</button>
+</div>
