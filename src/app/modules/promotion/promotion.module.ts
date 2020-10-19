@@ -19,7 +19,6 @@ import { AtomsFormFieldModule } from '../../shared/core/components/atoms/atoms-f
 
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MaterialModule } from '../../shared/core/ui-kit/material.module';
-import { EditorModule } from '@tinymce/tinymce-angular';
 import { FroalaEditorModule, FroalaViewModule } from 'angular-froala-wysiwyg';
 import { PromotionsFiltersComponent } from './promotions-filters/promotions-filters.component';
 import { PromotionTemplateConfirmationComponent } from './promotion-template-confirmation/promotion-template-confirmation.component';
@@ -27,7 +26,6 @@ import { PromotionTemplateConfirmationComponent } from './promotion-template-con
 @NgModule({
   declarations: [promotionComponent, promotionWriteComponent, PromotionsFiltersComponent, PromotionTemplateConfirmationComponent],
   imports: [
-    EditorModule,
     CommonModule,
     promotionRoutingModule,
     MatCardModule,

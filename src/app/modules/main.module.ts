@@ -24,7 +24,6 @@ import { ToolbarProfileMenuComponent } from '@common/components/toolbar-profile-
 import { ProjectPickerComponent } from '@common/components/project-picker/project-picker.component';
 import { RouterOutletMainComponent } from '@common/components/router-outlet-main/router-outlet-main.component';
 import { MatTabsModule } from '@angular/material/tabs';
-import { QuillModule } from 'ngx-quill';
 
 
 const routerChildren: Routes = [];
@@ -56,7 +55,6 @@ const routerChildren: Routes = [];
     MatTooltipModule,
     MatRippleModule,
     MatMenuModule,
-    QuillModule.forRoot(),
     RouterModule.forRoot(routerChildren),
   ],
   exports: [MainComponent],

@@ -1,22 +1,15 @@
 import { PromotionTemplateConfirmationComponent } from './../promotion-template-confirmation/promotion-template-confirmation.component';
 import { MatDialog } from '@angular/material/dialog';
 import { copyPromotion } from './../../../shared/common/services/copy.service';
-import { Resources } from './../interfaces/resources.interface';
 import { Promotion } from './../promotion.interface';
 import { Component, OnInit, ChangeDetectorRef, OnChanges } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { promotionService } from '../promotion.service';
-import { Ipromotion } from '../promotion.interface';
 import { FormGroup, Validators, FormBuilder, FormControlName, FormArray } from '@angular/forms';
 import { MyValidator } from '../../../shared/core/components/atoms/atoms-form-field/control-error/my-validator';
 import { ToasterService } from '../../../shared/core/services/toaster.service';
-import { LanguagesService } from '../../languages/languages.service';
 import { map, switchMap, filter } from 'rxjs/operators';
-import { CurrenciesService } from 'app/modules/currencies/currencies.service';
-import { IdentsService } from 'app/modules/idents/idents.service';
-import {CdkDragDrop, moveItemInArray} from '@angular/cdk/drag-drop';
 import * as _moment from 'moment';
-import { Moment } from 'moment';
 
 
 import {COMMA, ENTER} from '@angular/cdk/keycodes';
