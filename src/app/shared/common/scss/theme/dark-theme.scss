@@ -7,25 +7,14 @@
 @import './palettes/dark-primary';
 @import './palettes/dark-accent';
 @import './palettes/dark-warn';
-
 // Create the theme object. A theme consists of configurations for individual
 // theming systems such as "color" or "typography".
-$app-dark-theme: mat-dark-theme((
-  color: (
-    primary: $dark-palette-primary,
-    accent: $dark-palette-accent,
-    warn: $dark-palette-warn,
-  )
-));
-
+$app-dark-theme: mat-dark-theme(( color: ( primary: $dark-palette-primary, accent: $dark-palette-accent, warn: $dark-palette-warn, )));
 // custom color
-$app-dark-theme: map_merge_config_color_theme_material($app-dark-theme, background, background, #121212);
-$app-dark-theme: map_merge_config_color_theme_material($app-dark-theme, background, card, #25282b);
-$app-dark-theme: map_merge_config_color_theme_material($app-dark-theme, background, app-bar, #283f59);
-$app-dark-theme: map_merge_config_color_theme_material($app-dark-theme, background, dialog, #25282b);
-
-
+$app-dark-theme: map_merge_config_color_theme_material($app-dark-theme, background, background, #292d31);
+$app-dark-theme: map_merge_config_color_theme_material($app-dark-theme, background, card, #343A40);
+$app-dark-theme: map_merge_config_color_theme_material($app-dark-theme, background, app-bar, #72ae26);
+$app-dark-theme: map_merge_config_color_theme_material($app-dark-theme, background, dialog, #343A40);
 // texto: #f1f5fe,
 // point: #45c552,
-
-  // @debug "|==> map_namespace: #{ $app-dark-theme }";
+// @debug "|==> map_namespace: #{ $app-dark-theme }";

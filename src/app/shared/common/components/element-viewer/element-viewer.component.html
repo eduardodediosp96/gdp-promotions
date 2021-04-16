@@ -1,0 +1,38 @@
+<mat-card class="example-card my-3">
+    <mat-card-header>
+
+        <img mat-card-avatar [src]="coinImage" alt="Photo of a Shiba Inu">
+        <mat-card-title>{{coinName}}</mat-card-title>
+        <mat-card-subtitle class="d-flex justify-content-beetween">
+            <p class="pr-2">{{coinId}}</p>
+            <p>ranking: {{coinRank}}</p>
+            <p> / </p>
+            <p>score: {{coinScore}}</p>
+        </mat-card-subtitle>
+    </mat-card-header>
+    <mat-card-content>
+        <button (click)="close($event)" mat-icon-button color="warn" aria-label="Example icon button with a heart icon">
+			<mat-icon>reply</mat-icon>
+			<span>Back</span>
+		</button>
+        <p class="description" [innerHTML]="coinDescription"></p>
+        <div class="more-info-container">
+            <div class="more-info-wrapper">
+                <h3 class="pt-2 ">
+                    more info:
+                </h3>
+                <div *ngFor="let item of coinLinks">
+                    <a>{{item}}</a>
+                </div>
+            </div>
+            <div class="platforms-wrapper">
+                <h3 class="pt-2">
+                    platforms:
+                </h3>
+                <p *ngFor="let item of coinPlatforms">
+                    {{item}}
+                </p>
+            </div>
+        </div>
+    </mat-card-content>
+</mat-card>

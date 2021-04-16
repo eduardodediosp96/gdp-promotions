@@ -9,8 +9,7 @@ const routes: Routes = [
     component: MainComponent,
     children: [
       { path: 'home', 		loadChildren: () => import('./modules/home/home.module').then((m) => m.HomeModule) },
-      { path: 'promotion', loadChildren: () => import('./modules/promotion/promotion.module').then(m => m.promotionModule) },
-      { path: 'template', loadChildren: () => import('./modules/templates/template.module').then(m => m.templateModule) },
+      { path: 'crypto-coins', loadChildren: () => import('./modules/crypto-coins/crypto-coins.module').then(m => m.cryptoCoinsModule) },
     ],
   },
 ];

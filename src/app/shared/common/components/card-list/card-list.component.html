@@ -1,0 +1,33 @@
+<mat-paginator class="mt-3" (page)="handlePageEvent($event)" [length]="length" [pageSize]="pageSize" [showFirstLastButtons]="showFirstLastButtons" [pageSizeOptions]="pageSizeOptions" [pageIndex]="pageIndex">
+</mat-paginator>
+<div class="list-wrapper container">
+    <div class="list-row row">
+        <div [class]=" viewerStatus? 'list-column column col-12 py-3': 'list-column column col-12 col-md-4 py-3'" *ngFor="let item of list">
+            <mat-card class="example-card" (click)="elementSelect($event, item.id)">
+                <mat-card-header>
+                    <mat-card-title>{{item.name}}</mat-card-title>
+                    <mat-card-subtitle>
+                        <span>symbol: </span>
+                        <span>{{item.symbol}}</span>
+                    </mat-card-subtitle>
+                    <mat-card-subtitle>{{item.id}}</mat-card-subtitle>
+                </mat-card-header>
+                <mat-card-content>
+                </mat-card-content>
+                <mat-card-actions>
+                    <button mat-button>LIKE</button>
+                    <button mat-button>SHARE</button>
+                </mat-card-actions>
+            </mat-card>
+        </div>
+    </div>
+</div>
+
+
+
+<!-- <div *ngIf="pageEvent">
+    <h5>Page Change Event Properties</h5>
+    <div>List length: {{pageEvent.length}}</div>
+    <div>Page size: {{pageEvent.pageSize}}</div>
+    <div>Page index: {{pageEvent.pageIndex}}</div>
+</div> -->

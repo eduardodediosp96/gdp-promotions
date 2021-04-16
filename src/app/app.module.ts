@@ -7,6 +7,7 @@ import { AppComponent } from './app.component';
 import { MainModule } from './modules/main.module';
 import { HttpClientModule } from '@angular/common/http';
 import { LocalCommonModule } from '@common/local-common.module';
+
 @NgModule({
   declarations: [AppComponent],
   imports: [

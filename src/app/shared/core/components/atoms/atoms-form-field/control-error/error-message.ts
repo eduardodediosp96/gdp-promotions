@@ -2,9 +2,7 @@
 
 
 export class ErrorMessage {
-
   /**
-   *
    * @param name Nombre de la validacion
    * @param value Valor de la validacion
    */
@@ -19,7 +17,6 @@ export class ErrorMessage {
       'invalid_number': 'Este campo solo admite números.',
       'invalid_email': 'El email ingresado no es válido',
       'invalid_url': 'La url ingresada no es válida.',
-      // 'invalid_password': 'La contraseña ingresada no es válida.',
       'invalid_password': 'Tu contraseña debe tener entre 5 y 20 caracteres, una minúscula, una mayúscula y un número.',
       // 'limitMinMax': `El monto debe estar entre $ ${Utils.format().toMoney(value.min)} - $ ${Utils.format().toMoney(value.max)}`,
       'invalid_characters': (matches: any[]) => {
